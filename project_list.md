@@ -16,17 +16,21 @@
 ### 1. Crack detection (mid++)
 
 Use python and OpenCV library
+
 [Link trong file](https://hub.packtpub.com/opencv-detecting-edges-lines-shapes/)
+
 The link generally has some of the codes.
 
 ### 2. Phong shading (mid+) 
 
 Use OpenGl and C++, probably could easily find code.
+
 [Wiki](https://en.wikipedia.org/wiki/Phong_shading) 
 
 ### 3. IMACS crack detection (hard)
 
 [Preprints paper](url) 
+
 Use the stuff in the preprint, look hard 
 
 ### 4. YOLO crack detection (hard)
@@ -35,17 +39,20 @@ Use python and some libs
 
 [researchgate](https://www.researchgate.net/publication/348573266_Concrete_Crack_Detection_Based_on_Well-Known_Feature_Extractor_Model_and_the_YOLO_v2_Network)
 [Sci-hub one](https://sci-hub.se/10.3390/app11020813)
+
 look hard i think
 
 ### 5. Convex hull (hard) 
 
-look hard
 [Bai ong thay](https://www.researchgate.net/publication/360617315_A_fast_and_efficient_algorithm_for_determining_the_connected_orthogonal_convex_hulls)
+
 look freaking hard
+
 There's 2 paper files in the repo
 
 smth like Quickhull alg(they said)
-[Geeksforgeeks quickhull](https://www.geeksforgeeks.org/quickhull-algorithm-convex-hull/)
+
+[Geeksforgeeks](https://www.geeksforgeeks.org/quickhull-algorithm-convex-hull/)
 [Wiki](https://en.wikipedia.org/wiki/Quickhull) 
 
 ### 6. Lee and Preparata (mid++)
