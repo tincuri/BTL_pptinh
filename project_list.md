@@ -35,11 +35,11 @@ Use python and some libs
 [researchgate](https://www.researchgate.net/publication/348573266_Concrete_Crack_Detection_Based_on_Well-Known_Feature_Extractor_Model_and_the_YOLO_v2_Network)
 [Sci-hub one](https://sci-hub.se/10.3390/app11020813)
 look hard i think
-### 5. Convex hull (mid+ ~ hard) {#convex_hull}
+### 5. Convex hull (hard) {#convex_hull}
 
-d tai bai cua ong thay dc wth (sci-hub dung update tu 2021, bai ong thay 2022) xuat ban r nen xoa preprint luon.
+look hard
 [Bai ong thay](https://www.researchgate.net/publication/360617315_A_fast_and_efficient_algorithm_for_determining_the_connected_orthogonal_convex_hulls)
-
+There's the paper file in the repo
 smth like Quickhull alg(they said)
 [Geeksforgeeks quickhull](https://www.geeksforgeeks.org/quickhull-algorithm-convex-hull/)
 [Wiki](https://en.wikipedia.org/wiki/Quickhull) 
