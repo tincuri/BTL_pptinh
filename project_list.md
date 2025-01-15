@@ -37,15 +37,11 @@ Use python and some libs
 look hard i think
 ### 5. Convex hull (hard) {#convex_hull}
 
-<<<<<<< HEAD
 look hard
 [Bai ong thay](https://www.researchgate.net/publication/360617315_A_fast_and_efficient_algorithm_for_determining_the_connected_orthogonal_convex_hulls)
-There's the paper file in the repo
-=======
 look freaking hard
 There's 2 paper files in the repo
 
->>>>>>> e9724fb (add some resources)
 smth like Quickhull alg(they said)
 [Geeksforgeeks quickhull](https://www.geeksforgeeks.org/quickhull-algorithm-convex-hull/)
 [Wiki](https://en.wikipedia.org/wiki/Quickhull) 
