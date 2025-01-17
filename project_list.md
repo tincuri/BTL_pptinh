@@ -3,29 +3,26 @@
 ## Advanced proj without physicals models(robots)
 Rank based on source
 
-1. (14) [Lee and Preparata alg for finding shortest path](#6-lee-and-preparata-med)
-2. (13) [Alg for finding convex hull](#5-convex-hull-hard)
-3. (8) [Crack detection](#1-crack-detection-med) 
-4. (9) [Phong shading](#2-phong-shading-med)
-5. (12) [Concrete crack detection using YOLO](#4-yolo-crack-detection-hard)
+1. (9) [Phong shading](#1-phong-shading)
+2. (13) [Alg for finding convex hull](#2-convex-hull)
+3. (14) [Lee and Preparata alg for finding shortest path](#3-lee-and-preparata)
+4. (8) [Crack detection](#5-crack-detection) 
+5. (12) [Concrete crack detection using YOLO](#5-yolo-crack-detection)
 
 ## Stuff about each proj
 
-### 1. Lee and Preparata (co sot)
+### 1. Phong shading 
 
-[The original paper](https://asignatura.us.es/fgcitig/Articulos/19-An%20optimal%20algorithm%20for%20finding%20the%20kernel%20of%20a%20polygon.pdf)
+Use OpenGl and C++, probably could easily find code.
 
-python implementation: 
-[Some random guy's project](https://github.com/gaganso/simple_polygon_kernel/tree/master)
+[Wiki](https://en.wikipedia.org/wiki/Phong_shading) 
 
-[sot](https://digitalscholarship.unlv.edu/cgi/viewcontent.cgi?article=4927&context=thesesdissertations#:~:text=The%20kernel%20of%20a%20simple,is%20the%20kernel%20of%20P.) 
-### 2. Convex hull (co sot) 
+### 2. Convex hull 
 
 [github](https://github.com/linhnk2109/O-Convexhull/tree/main) 
 
 [Bai ong thay](https://www.researchgate.net/publication/360617315_A_fast_and_efficient_algorithm_for_determining_the_connected_orthogonal_convex_hulls)
 
-Look freaking hard
 
 There's 2 paper files in the repo
 
@@ -34,19 +31,19 @@ smth like Quickhull alg(they said)
 [Geeksforgeeks](https://www.geeksforgeeks.org/quickhull-algorithm-convex-hull/)
 [Wiki](https://en.wikipedia.org/wiki/Quickhull) 
 
-### 3. Crack detection
+### 3. Lee and Preparata
+
+The original paper is in the repo
+
+[fake sot](https://digitalscholarship.unlv.edu/cgi/viewcontent.cgi?article=4927&context=thesesdissertations#:~:text=The%20kernel%20of%20a%20simple,is%20the%20kernel%20of%20P.) 
+
+### 4. Crack detection
 
 Use python and OpenCV library
 
 [Link trong file](https://hub.packtpub.com/opencv-detecting-edges-lines-shapes/)
 
 The link generally has some of the codes.
-
-### 4. Phong shading 
-
-Use OpenGl and C++, probably could easily find code.
-
-[Wiki](https://en.wikipedia.org/wiki/Phong_shading) 
 
 ### 5. YOLO crack detection
 
