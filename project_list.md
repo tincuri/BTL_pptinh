@@ -21,7 +21,7 @@ Use OpenGl and C++, probably could easily find code.
 
 [github](https://github.com/linhnk2109/O-Convexhull/tree/main) 
 
-[Bai ong thay](https://www.researchgate.net/publication/360617315_A_fast_and_efficient_algorithm_for_determining_the_connected_orthogonal_convex_hulls)
+[The teacher's one](https://www.researchgate.net/publication/360617315_A_fast_and_efficient_algorithm_for_determining_the_connected_orthogonal_convex_hulls)
 
 
 There's 2 paper files in the repo
@@ -35,13 +35,13 @@ smth like Quickhull alg(they said)
 
 The original paper is in the repo
 
-[fake sot](https://digitalscholarship.unlv.edu/cgi/viewcontent.cgi?article=4927&context=thesesdissertations#:~:text=The%20kernel%20of%20a%20simple,is%20the%20kernel%20of%20P.) 
+[the wrong one](https://digitalscholarship.unlv.edu/cgi/viewcontent.cgi?article=4927&context=thesesdissertations#:~:text=The%20kernel%20of%20a%20simple,is%20the%20kernel%20of%20P.) 
 
 ### 4. Crack detection
 
 Use python and OpenCV library
 
-[Link trong file](https://hub.packtpub.com/opencv-detecting-edges-lines-shapes/)
+[Link in the file](https://hub.packtpub.com/opencv-detecting-edges-lines-shapes/)
 
 The link generally has some of the codes.
 
