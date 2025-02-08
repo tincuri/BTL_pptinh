@@ -1,0 +1,272 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{vntex}
+%\usepackage[english,vietnam]{babel}
+%\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}[ptm]
+%\usepackage[utf8]{inputenc}
+%\usepackage[francais]{babel}
+\usepackage{a4wide,amssymb,epsfig,latexsym,array,hhline,fancyhdr}
+\usepackage[normalem]{ulem}
+%\usepackage{soul}
+
+\usepackage[makeroom]{cancel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol,longtable,amscd}
+\usepackage{diagbox}%Make diagonal lines in tables
+\usepackage{booktabs}
+\usepackage{alltt}
+\usepackage[framemethod=tikz]{mdframed}% For highlighting paragraph backgrounds
+\usepackage{caption,subcaption}
+
+\usepackage{lastpage}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{graphicx}							% Standard graphics package
+\usepackage{array}
+\usepackage{tabularx, caption}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{graphics}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{epsfig}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,snakes,backgrounds,calc}
+\usepackage[unicode]{hyperref}
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
+\usepackage{listings}
+
+%\usepackage{pstcol} 								% PSTricks with the standard color package
+
+\usepackage[normalem]{ulem}
+
+\newtheorem{theorem}{{\bf Định lý}}
+\newtheorem{property}{{\bf Tính chất}}
+\newtheorem{proposition}{{\bf Mệnh đề}}
+\newtheorem{corollary}[proposition]{{\bf Hệ quả}}
+\newtheorem{lemma}[proposition]{{\bf Bổ đề}}
+\theoremstyle{definition}
+\newtheorem{exer}{Bài toán}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+% Remove page number in contents page. 
+\addtocontents{lof}{\protect\thispagestyle{empty}}
+% Remove page number in list of figure page. 
+\addtocontents{lot}{\protect\thispagestyle{empty}}
+% Remove page number in list of table page. 
+\def\thesislayout{	% A4: 210 × 297
+	\geometry{
+		a4paper,
+		total={160mm,240mm},  % fix over page
+		left=30mm,
+		top=22mm,
+            right=20mm,
+            bottom=20mm,
+	}
+}
+\def\thesisheadlayout{	% A4: 210 × 297
+	\geometry{
+		a4paper,
+		total={160mm,240mm},  % fix over page
+		left=30mm,
+		top=10mm,
+	}
+}
+\thesislayout
+\lstset{
+language=R,
+basicstyle=\footnotesize\sffamily,
+commentstyle=\ttfamily\color{black},
+numbers=left,
+numberstyle=\ttfamily\color{black}\footnotesize,
+stepnumber=1,
+numbersep=5pt,
+backgroundcolor=\color{white},
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+frame=single,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+breakatwhitespace=false,
+title=\lstname,
+escapeinside={},
+keywordstyle={},
+morekeywords={}
+}
+%\usepackage{fancyhdr}
+\setlength{\headheight}{40pt}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\renewcommand{\footruleskip}{1mm}
+
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(25,15)(0,0)
+    \put(0,-8){\includegraphics[width=10mm, height=10mm]{Images/1-hcmut.png}}
+    %\put(0,-8){\epsfig{width=10mm,figure=hcmut.eps}}
+   \end{picture}&
+	%\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
+	\begin{tabular}{l}
+		\textbf{  Trường Đại Học Bách Khoa - Đại học Quốc gia TP.HCM }\\
+		\textbf{  Khoa Điện - Điện tử}
+	\end{tabular} 	
+ \end{tabular}
+}
+\fancyhead[R]{
+	\begin{tabular}{l}
+		\tiny \bf \\
+		\tiny \bf 
+	\end{tabular}  }
+\fancyfoot{} % clear all footer fields
+\fancyfoot[L]{\scriptsize  Báo cáo Bài tập lớn/Môn đại số tuyến tính - HK1 2024 - 2025}
+\fancyfoot[R]{\scriptsize  Trang {\thepage}/\pageref{LastPage}}
+
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+%%%
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+\makeatletter
+\newcounter {subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
+
+\everymath{\color{black}}%make in-line maths symbols blue to read/check easily
+
+\sloppy
+\captionsetup[figure]{labelfont={small,bf},textfont={small,it},belowskip=-1pt,aboveskip=-9pt}
+%space remove between caption, figure, and text
+\captionsetup[table]{labelfont={small,bf},textfont={small,it},belowskip=-1pt,aboveskip=7pt}
+\setlength{\floatsep}{5pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+
+\thesislayout
+
+\begin{document}
+
+\begin{titlepage}
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[line width = 4pt] ($(current page.north west) + (0.4in,-0.5in)$) rectangle ($(current page.south east) + (-0.4in,0.5in)$);
+  \draw[line width=1.5pt]
+    ($ (current page.north west) + (0.45in,-0.55in) $)
+    rectangle
+    ($ (current page.south east) + (-0.45in,0.55in) $);
+\end{tikzpicture}
+
+\begin{center}
+\LARGE \textbf{ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH} \\
+\vspace{0.2cm}
+\LARGE \textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA} \\
+\vspace{0.2cm}
+\LARGE \textbf{KHOA ĐIỆN - ĐIỆN TỬ}
+\end{center}
+
+\vspace{0.3cm}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=4cm]{Images/1-hcmut.png}
+\end{center}
+\end{figure}
+
+\begin{center}
+\begin{tabular}{c}
+\multicolumn{1}{c}{\textbf{{\LARGE BÁO CÁO}}}\\
+\\{\textbf{{\LARGE BÀI TẬP LỚN}}}
+\\{\textbf{{\LARGE MÔN HỌC ĐẠI SỐ TUYẾN TÍNH}}}
+\\ \textit{(MT1007)}
+\\
+\\
+\textbf{\LARGE ĐỀ TÀI 14}\\
+\textbf{\Large Finding shortest paths for autonomous robots in 2D and 2,5D }
+
+\end{tabular}
+\end{center}
+\vspace{0.5cm}
+\begin{table}[h]
+\begin{tabular}{rll}
+\hspace{2 cm} &  \textbf{\Large GVHD:} {\Large ................................}
+\\
+\\
+\hspace{2 cm} &   \textbf{\Large Lớp:} {\Large ................................}
+\\
+\\
+\hspace{2 cm}  &   \textbf{\Large Nhóm số:} {\Large ................................}
+\\
+\\
+\end{tabular}
+\end{table}
+
+\begin{center}
+\vspace{0.5cm}
+
+\textbf{\large Danh sách thành viên:}
+
+\vspace{0.5cm}
+
+% Increase row height by 2.5 times
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|m{8cm}|c|}
+    \hline
+    \textbf{STT} & \textbf{Họ và tên} & \textbf{MSSV} \\
+    \hline
+    1 & Lưu Gia Huy & 2411194\\
+    \hline
+    2 & Lê Đức Minh & 2414110\\
+    \hline
+    3 & & \\
+    \hline
+    4 & & \\
+    \hline
+\end{tabular}
+\end{center}
+
+
+\vspace{0.5cm}
+\begin{center}
+{\Large TP. HỒ CHÍ MINH, 2024 }
+\end{center}
+\end{titlepage}
+%\thispagestyle{empty}
+\newpage
+%%%%%%%%%%%%%%%%%INTRO%%%%%%%%%%%%%%%%%%%
+\input{Intro/1-LoiMoDau}
+\input{Intro/2-LoiCamOn}
+\input{Intro/3-TomTat}
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%CONTENTS%%%%%%%%%%%%%%%%%%%
+\input{Contents/1-GioiThieu}
+\newpage
+\input{Contents/2-CoSoLyThuyet}
+\newpage
+\input{Contents/3-ThucHanh}
+\newpage
+\input{Contents/4-TongKet}
+%%%%%%%%%%%%%%%%%OUTRO%%%%%%%%%%%%%%%%%%%
+\input{Outro/1-TaiLieuThamKhao}
+\newpage
+\input{Outro/2-PhuLuc}
+\end{document}
+
+
