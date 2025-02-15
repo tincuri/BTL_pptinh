@@ -2,35 +2,35 @@ import numpy as np # type: ignore
 import matplotlib.pyplot as plt # type: ignore
 from typing import Union
 
-class Point(object):
+class Point:
     """
     Represents a point in the form (x, y).
 
     Attributes:
         x (float): The x-coordinate of the point.
         y (float): The y-coordinate of the point.
-
+    
     Methods:
-        __init__(self, x: Union[int, float], y: Union[int, float]):
-            Initializes a Point object with coordinates x and y.
+        __init__(self, x, y):
+            Initializes a Point with coordinates x and y.
         
-        __str__(self) -> str:
-            Returns a string representation of the Point object.
-
-        __eq__(self, other: 'Point') -> bool:
-            Checks if two Point objects are equal within a tolerance.
-
-        distance(self, other: 'Point') -> Union[int, float]:
-            Calculates the Euclidean distance between this Point and another Point.
+        __str__:
+            Returns a string representation of the Point.
         
-        coor(self) -> Tuple[float, float]:
-            Returns the coordinates of the point as a tuple.
-        """
+        __eq__:
+            Checks equality of two Point objects.
+        
+        distance:
+            Calculates the Euclidean distance to another Point.
+        
+        coor:
+            Returns the coordinates as a numpy array.
+    """
     def __init__(self, x: Union[int, float], y: Union[int, float]):
         self.x = float(x)
         self.y = float(y)
     
-    def __str__(self):
+    def __str__(self) -> str:
         return str(f"({self.x}, {self.y})")
     
     def __eq__(self, other: 'Point') -> bool:
@@ -39,22 +39,19 @@ class Point(object):
 
         if isinstance(other, Point):
             return (
-                -epsilon <= np.float64(self.x) - np.float64(other.x) <= epsilon and
-                -epsilon <= np.float64(self.y) - np.float64(other.y) <= epsilon
+                -epsilon <= self.x - other.x <= epsilon and
+                -epsilon <= self.y - other.y <= epsilon
             )
 
-        raise NotImplementedError()
+        raise NotImplementedError("Comparison not supported between instances of different types.")
 
-    def distance(self, other: 'Point') -> Union[int, float]:
-        dist_sq = (float(self.x) - float(other.x))**2 + (float(self.y) - float(other.y))**2
+    def distance(self, other: 'Point') -> float:
+        dist_sq = (self.x - other.x)**2 + (self.y - other.y)**2
         return np.sqrt(dist_sq)
     
-    def coor(self):
-        """Returns the coordinates of the point as a tuple."""
-        return (float(self.x), float(self.y))
-    
-    def coor_plot(self):
-        return np.array([self.x, self.y])
+    def coor(self) -> np.ndarray:
+        """Returns the coordinates of the point as a ndarray."""
+        return np.array([self.x, self.y], dtype=float)
     
     
 
@@ -75,21 +72,7 @@ def midPoint(p, q):
     return Point(x, y)
 
 
-"""def __eq__(self, other: 'Point') -> bool:
-    # Check equality of two points.
-    epsilon = 1e-6
-    if isinstance(other, Point):
-        if -epsilon <= float(self.x) - float(other.x) <= epsilon:
-            if -epsilon <= float(self.y) - float(other.y) <= epsilon:
-                return True
-        
-        return (
-            -epsilon <= float(self.x) - float(other.x) <= epsilon and
-            -epsilon <= float(self.y) - float(other.y) <= epsilon
-        )
-    return False
 
-    raise NotImplementedError()"""
 
     
 """A = Point(1, 2)
@@ -97,14 +80,19 @@ B = Point(7, 2)
 c = A.distance(B)
 print(c)
 print(c)
-print(A.coor()[0])"""
+print(A.coor()[0], A.coor(), type(A.coor()), A)
 
-"""
-A = Point(1, 1)
+Q = Point(1,2)
+
+listaa = [A, B]
+if Q in listaa:
+    print("true")"""
+
+
+"""A = Point(1, 1)
 B = Point(5, 5)
 E = Point(3, 3)
 F = Point(0, 0)
-G = Midpoint(A, B)
+G = midPoint(A, B)
 print(G.distance(A), G.distance(E))
-print(G)
-"""
+print(G)"""
