@@ -15,7 +15,7 @@ import math
 
 
 # take input from test.txt
-f = open("code/tool/15points.txt", "r")
+f = open("code/tool/100points.txt", "r")
 
 # insert input points to list
 set = [] # set of all points which hasn't become verticle
@@ -38,17 +38,18 @@ arr = np.vstack((arr, arr[0]))
 plt.scatter(x_in, y_in, marker='o')  # Create the scatter plot
 #plt.plot(array_for_hull[:, 0], array_for_hull[:, 1], 'o')
 plt.plot(arr[:, 0], arr[:, 1], 'r--', lw=2)
+plt.savefig(f"code/tool/figure/triangulation/case_100_0.png")
+plt.show() # show origin simple polygon
 
 
-abccc = polygon.verticesType()
-list_of_edges = polygon.edges
-#for _ in a:
-    #print(_[0], _[1])
-    #print(type(_[0].y))
-
-# now: success classified vertices into 5 groups
-# then: generate monotone polygon aka monopoly
-
+def plotTriangulate(for_plot: 'tuple', count: 'int'):
+    plt.scatter(x_in, y_in, marker='o', color='blue')  # Create the scatter plot
+    plt.plot(arr[:, 0], arr[:, 1], 'r--', lw=2)
+    for diagonal in for_plot:
+        x_values, y_values = diagonal
+        plt.plot(x_values, y_values, 'k-', lw=2)
+    plt.savefig(f"code/tool/figure/triangulation/case_100_{count}.png")
+    #plt.show() # show origin simple polygon
 
 def sortQueue(a: 'list')->list:
     """
@@ -71,22 +72,14 @@ def sortQueue(a: 'list')->list:
     return a_reverse, a_origin
     
 def isInside(triangle: 'tuple', p: 'Point') -> bool:
-    a, b, c = triangle
-    a, b, c, p = map(np.array, [a.coor(), b.coor(), c.coor(), p.coor()])
+    a, b, c = map(np.array, [_.coor() for _ in triangle])
+    p = np.array(p.coor())
 
-    # calculate vectors
-    ab = b - a
-    ap = p - a
-    bc = c - b
-    bp = p - b
-    ca = a - c
-    cp = p - c
-
-    # cross product
-    cross1 = np.cross(ab, ap)
-    cross2 = np.cross(bc, bp)
-    cross3 = np.cross(ca, cp)
-    return (cross1 >= 0 and cross2 >= 0 and cross3 >= 0) or (cross1 <= 0 and cross2 <= 0 and cross3 <= 0)
+    def cross(v1, v2):
+        return np.cross(v1, v2)
+    
+    return all((cross(b - a, p - a) >= 0, cross(c - b, p - b) >= 0, cross(a - c, p - c) >= 0)) or \
+           all((cross(b - a, p - a) <= 0, cross(c - b, p - b) <= 0, cross(a - c, p - c) <= 0))
 
 def makeMonotone(polygon: 'Polygon'): # a: 'List' --> queue = [vertex: 'Point', "type of vertex": 'str']
     final_triangles = []
@@ -97,8 +90,8 @@ def makeMonotone(polygon: 'Polygon'): # a: 'List' --> queue = [vertex: 'Point', 
     line_inserted = 0
 
     triangles_found = -1
+    for_plot = [] # array for plot
     while triangles_found != 0:
-        #print("here", len(vertices), vertices[0])
         triangles_found = 0
 
         for index in range(len(vertices)):
@@ -106,7 +99,7 @@ def makeMonotone(polygon: 'Polygon'): # a: 'List' --> queue = [vertex: 'Point', 
             prev_ver = vertices[index - 1]
             try:
                 next_ver = vertices[index + 1]
-            except IndexError:
+            except IndexError: # handle last index
                 next_ver = vertices[0]
 
             #print(prev_ver, vertex, next_ver)
@@ -126,8 +119,10 @@ def makeMonotone(polygon: 'Polygon'): # a: 'List' --> queue = [vertex: 'Point', 
                     stacked = np.stack((np.array([prev_ver.x, prev_ver.y]) , np.array([next_ver.x, next_ver.y])))
                     x_values = stacked[:, 0]  # Get [a, c]
                     y_values = stacked[:, 1]  # Get [b, d]
-                    plt.plot(x_values, y_values, 'b-', lw=2)
+                    for_plot.append((x_values, y_values))
+                    
                     line_inserted += 1
+                    plotTriangulate(for_plot, line_inserted)
 
                     diags.append((prev_ver, next_ver))
 
@@ -148,11 +143,43 @@ def makeMonotone(polygon: 'Polygon'): # a: 'List' --> queue = [vertex: 'Point', 
 triangles = makeMonotone(polygon)
 
 
-plt.show()
 
 
 
-f = open("code/tool/15points_test.txt", "w")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""f = open("code/tool/15points_test.txt", "w")
 
 for triangle in triangles:
     pre_ver, ver, nex_ver = triangle
@@ -160,71 +187,37 @@ for triangle in triangles:
     xau = str(pre_ver.coor()) + " " + str(ver.coor()) + " " + str(nex_ver.coor())
     f.write(xau)
     f.write("\n")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 """
-def old_makeMonotone(a:'list'): # a: 'List' --> queue = [vertex: 'Point', "type of vertex": 'str']
-    tree = [{"edge": 0, "helper": 0, "style": None} for _ in a] # tree: edge and helper of edge
-    #print(tree)
 
-    def handleStartVertex(vertex: 'Point', index: 'int'):
-        tree[index] = {"edge": list_of_edges[index], "helper": vertex, "style": "start"}
-        #print(tree[0].get("edge").p, tree[0].get("edge").q, tree[0].get("helper"))
 
-    def handleEndVertex(vertex: 'Point', index: 'int'):
-        if tree[index-1].get("style") == "merge": #or tree[index-1].get("style") != None:
-            pass # insert diagonal 
-        tree[index-1] = {"edge": 0, "helper": 0, "style": None}
-    
-    def handleSplitVertex(vertex: 'Point', index: 'int'):
-        ...
 
-    # queqe Q sort by y-coor:
-    priority_queue, a = sortQueue(a)
-    while len(priority_queue) > 0:
-        vertex, vertex_type = a[priority_queue[0]]
-        # print(type(vertex), vertex, vertex_type)
-        if vertex_type == "start":
-            handleStartVertex(vertex, priority_queue[0])
-        #elif vertex_type == "end":
-        #    handleEndVertex()
-        print(tree, priority_queue[0])
-        break
-    # handle cases
 
-"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -44,8 +44,8 @@ def create_gif(image_paths, output_path, duration=0.1):
         print(f"Error creating GIF: {e}")
 
 # Example usage:
-image_files = [f"code/tool/figure/case_100_{_}.png" for _ in range(17)]
-output_gif = "code/tool/figure/animated.gif"
+image_files = [f"code/tool/figure/triangulation/case_100_{_}.png" for _ in range(98)] # edit link 
+output_gif = "code/tool/figure/triangulation/animated.gif" # edit link 
 frame_duration = 0.4  # 200 milliseconds per frame
 
 create_gif(image_files, output_gif, frame_duration)
