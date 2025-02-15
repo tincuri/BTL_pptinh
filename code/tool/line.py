@@ -3,53 +3,21 @@ import matplotlib.pyplot as plt # type: ignore
 import sys
 from typing import Union
 from point import Point
+import math
 
 class Line(object):
     """Represents a line in the form ax + by + c = 0.
 
-    This class provides two ways to initialize a line:
-
-    1. Using two points (p, q).
-    2. Using the coefficients [a, b, c] of the line equation.
+    Supports initialization via two points or a coefficient vector.
 
     Attributes:
-        lineVec (numpy.ndarray): A NumPy array containing the coefficients [a, b, c] 
-                                of the line equation ax + by + c = 0.
+        lineVec (numpy.ndarray): Coefficients [a, b, c] of the line equation.
 
     Methods:
-        __init__(self, *args): Initializes a Line object.
-
-            If two arguments are provided, they are treated as two Point objects 
-            defining the line.
-
-            If one argument is provided, it is assumed to be a list or NumPy array
-            representing the coefficients [a, b, c].
-
-            Raises:
-                ValueError: If an invalid number of arguments is provided.
-
-        distance(self, other: 'Point') -> Union[int, float]:
-            Calculates the perpendicular distance between this line and a given Point.
-
-            Args:
-                other (Point): The Point object to calculate the distance to.
-
-            Returns:
-                float or int: The perpendicular distance between the line and the point.
-
-        isRight(self, other: 'Point') -> bool:
-            Checks if a given point is on the "right" side of the line.  "Right" is defined as
-            the side where ax + by + c > 0.
-
-            Args:
-                other (Point): The Point object to check.
-
-            Returns:
-                bool: True if the point is on the "right" side, False otherwise.
-
-        __str__(self) -> str:
-            Returns a string representation of the Line object, indicating how it was created.
-
+        __init__(*args): Initializes a line from two points or a coefficient vector.
+        distance(other: 'Point') -> float: Computes the perpendicular distance to a point.
+        isRight(other: 'Point') -> bool: Checks if a point is on the "right" side of the line.
+        __str__() -> str: Returns a string representation of the line.
     """
     def __init__(self, *args):
         if len(args) == 2:
@@ -101,22 +69,22 @@ class Segment(Line):
     Inherits from Line.
 
     Methods:
-        getlength(self) -> float: Returns the length of the segment.
-        distance1(self, pnt: 'Point') -> float: Distance to the nearest point on the segment.
-        onSegment(self, other: 'Point') -> bool: Checks if a Point lies on the segment.
-        intersect(self, other: 'Segment') -> bool: Checks if a Segment intersects this segment.
+        getlength() -> float: Returns the segment's length.
+        distance1(pnt: 'Point') -> float: Computes the shortest distance from the segment to a point.
+        onSegment(other: 'Point') -> bool: Checks if a point lies on the segment.
+        intersect(other: 'Segment') -> bool: Determines if two segments intersect.
     """
     def getlength(self):
         return self.p.distance(self.q)
-
+    
     def distance1(self, pnt: 'Point'): # distance to the nearest point (start or end) of segment to the Point
         def dot(v, w):
             x, y = v
             X, Y = w
             return x*X + y*Y
 
-        line_vec = (float(self.qx)-self.px, self.qy-self.py)
-        pnt_vec = (float(pnt.x) - float(self.px), float(pnt.y) - float(self.py))
+        line_vec = (self.qx-self.px, self.qy-self.py)
+        pnt_vec = (pnt.x - self.px, pnt.y - self.py)
 
         line_len = self.getlength()
 
@@ -137,14 +105,7 @@ class Segment(Line):
         x, y = other.coor()
         return min(self.px, self.qx) <= x <= max(self.px, self.qx) and min(self.py, self.qy) <= y <= max(self.py, self.qy)
     
-    """def intersect(self, other: 'Segment'):
-        #if (self.p in [other.p, other.q]) or (self.q in [other.p, other.q]): # handle in Polygon class
-        #    return True
-        if self.isRight(other.p) != self.isRight(other.q):
-            if other.isRight(self.p) != other.isRight(self.q):
-                return True
-        return False"""
-    
+    # ccw use in intersect method
     def ccw_x(self, a, b, c):
         return (c[1]-a[1]) * (b[0]-a[0]) > (b[1]-a[1]) * (c[0]-a[0])
 
@@ -181,6 +142,7 @@ class Ray(Line):
         if not (min(x, self.qx) <= self.px <= max(x, self.qx) and min(y, self.qy) <= self.py <= max(y, self.qy)):
             return True
         return False
+
 
 """A = Point(1, 1)
 B = Point(2, 2)

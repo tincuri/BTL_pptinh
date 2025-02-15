@@ -7,7 +7,7 @@ from circles import Circle # type: ignore
 import sys
 from typing import Union
 import heapq
-from polygon import Polygon, SimplePolygon # type: ignore
+from polygon import Polygon, SimplePolygon, lastPoint # type: ignore
 from scipy.spatial import ConvexHull, convex_hull_plot_2d # type: ignore
 
 def newset(points: 'np.ndarray'):
@@ -15,7 +15,7 @@ def newset(points: 'np.ndarray'):
 
 
 # take input from test.txt
-f = open("tool/test.txt", "r")
+f = open("code/tool/test.txt", "r")
 
 # insert input points to list
 set = [] # set of all points which hasn't become verticle
@@ -38,8 +38,7 @@ def generateHull(set: 'list') -> tuple:
     """
 
     # initialize the polygon as a convex hull of the points
-    array_for_hull = np.ndarray(shape=(n, 2), dtype=float)
-    array_for_hull[:] = [[float(_.coor()[0]), float(_.coor()[1])] for _ in set]
+    array_for_hull = np.array([[_.coor()[0], _.coor()[1]] for _ in set], dtype=float)
     hull = ConvexHull(array_for_hull)
 
     # generate polygon
@@ -47,29 +46,19 @@ def generateHull(set: 'list') -> tuple:
     polygon = Polygon(vertices)
 
     # update set of points
-    set = [_ for _ in set if _ not in vertices] # update set
-
-    print("Verticles of polygon: ",len(polygon.vertices), "remain:", len(set))
-    #print("new of polygon: ", polygon.getNew_array())
+    set = [_ for _ in set if _ not in vertices]
 
     # plot the convex hull for the first time
-    plotPolygon(polygon, array_for_hull, count=0)
+    #plotPolygon(polygon, array_for_hull, count=0)
 
     # get the list of new vertices can be inserted
-    arr_tmp = np.ndarray(shape=(len(set), 2), dtype=float)
-    arr_tmp[:] = [[float(_.coor()[0]), float(_.coor()[1])] for _ in set]
-    hull_tmp = ConvexHull(arr_tmp)
-    pos_vertices = newset(arr_tmp[hull_tmp.vertices]) # list of posible vertices ( array of Point )
-    """for _ in pos_vertices:
-        print(_)
-    for _ in set:
-        print("set: ", _)"""
+    pos_vertices = makePosVer(set)
+
     return set, polygon, array_for_hull, pos_vertices
 
 def makePosVer(set: 'list'):
     # get the list of new vertices can be inserted
-    arr_tmp = np.ndarray(shape=(len(set), 2), dtype=float)
-    arr_tmp[:] = [[float(_.coor()[0]), float(_.coor()[1])] for _ in set]
+    arr_tmp = np.array([[_.coor()[0], _.coor()[1]] for _ in set], dtype=float)
     hull_tmp = ConvexHull(arr_tmp)
     pos_vertices = newset(arr_tmp[hull_tmp.vertices]) # list of posible vertices ( array of Point )
     return pos_vertices
@@ -90,51 +79,8 @@ def plotPolygon(polygon, array_for_hull, count: 'int'):
     arr = np.vstack((arr, arr[0]))
     plt.plot(array_for_hull[:, 0], array_for_hull[:, 1], 'o')
     plt.plot(arr[:, 0], arr[:, 1], 'r--', lw=2)
-    plt.savefig(f"tool/figure/case_100_{count}.png")
+    # plt.savefig(f"code/tool/figure/case_100_{count}.png")
     plt.show()
-
-"""def vonglap(set, polygon, array_for_hull):
-    newpolygon, newset = SimplePolygon(polygon, set)
-    #print("Verticles of polygon: ",len(newpolygon.vertices), len(newset), len(newpolygon.new_array))
-    #print("new of polygon: ", newpolygon.getNew_array())
-    print(len(set),len(newset))
-    #plotPolygon(newpolygon, array_for_hull)
-
-    newpolygon, newset = SimplePolygon(newpolygon, newset)
-    print(len(set),len(newset))
-    #plotPolygon(newpolygon, array_for_hull)
-
-    newpolygon, newset = SimplePolygon(newpolygon, newset)
-    print(len(set),len(newset))
-    plotPolygon(newpolygon, array_for_hull)
-
-    newpolygon, newset = SimplePolygon(newpolygon, newset)
-    print(len(set),len(newset))
-    plotPolygon(newpolygon, array_for_hull)
-
-    newpolygon, newset = SimplePolygon(newpolygon, newset)
-    print(len(set),len(newset))
-    plotPolygon(newpolygon, array_for_hull)"""
-
-"""def vonglap(set, polygon, array_for_hull):
-    i = 0
-    if i == 0:
-        newpolygon, newset = SimplePolygon(polygon, set)
-        i += 1
-    
-    while len(set) > 0:
-        if i == 2:
-            print("debug")
-        newpolygon, newset = SimplePolygon(newpolygon, newset)
-        print(len(set),len(newset))
-        plotPolygon(newpolygon, array_for_hull)
-        i += 1
-    # skip
-    newpolygon, newset = vonglap(newset, polygon, array_for_hull)
-    print(len(set),len(newset))
-    plotPolygon(newpolygon, array_for_hull)
-    if len(set) == 0:
-        return newpolygon, newset"""
 
 def vonglap(set, polygon, array_for_hull, pos_vertices):
     """ dang nghi recursive method"""
@@ -142,60 +88,51 @@ def vonglap(set, polygon, array_for_hull, pos_vertices):
     newpolygon, newset = SimplePolygon(polygon, set, pos_vertices)
     #print(len(set),len(newset))
     count = 1
-    plotPolygon(newpolygon, array_for_hull, count)
-    print("Points remain: ", len(newset))
+    #plotPolygon(newpolygon, array_for_hull, count)
+    #print("Points remain: ", len(newset)) # for debug
 
     # make new posible vertices list:
     while len(newset) > 2:
         new_pos_vertices = makePosVer(newset)
         newpolygon, newset = SimplePolygon(polygon, newset, new_pos_vertices)
-        print("Points remain: ", len(newset))
+        #print("Points remain: ", len(newset)) # for debug
         count += 1
-        plotPolygon(newpolygon, array_for_hull, count)
-        
-        
+        #plotPolygon(newpolygon, array_for_hull, count)
 
+    # method for 2 last:
+    polygon, set = lastPoint(newpolygon, newset)
+    count += 1
+    #plotPolygon(polygon, array_for_hull, count)
+    if len(set) == 0:
+        print("Generate Simple polygon successfully.")
+
+    plotPolygon(polygon, array_for_hull, count) # if you want to plot the last figure
+    return set, polygon
+        
 
 
 set, polygon, array_for_hull, pos_vertices = generateHull(set)
-#while len(set) > 0:
-vonglap(set, polygon, array_for_hull, pos_vertices)
+set, polygon = vonglap(set, polygon, array_for_hull, pos_vertices)
 
 
 
+"""f = open("code/tool/15points_test.txt", "w")
+
+for vertex in polygon.vertices:
+    taolao = vertex.coor()
+    a, b = taolao
+    xau = str(a) + " " + str(b)
+    f.write(xau)
+    f.write("\n")"""
 
 
+### NEW
 
 
+#print(len(polygon.edges), len(polygon.vertices)) # check the return's of vonglap() function
 
-
-
-
-
-
-
-
-
-"""plt.plot(array_for_hull[:,0], array_for_hull[:,1], 'o')
-plt.plot(array_for_hull[hull.vertices,0], array_for_hull[hull.vertices,1], 'r--', lw=2)
-plt.show()"""
-
-#print("test: ", array_for_hull[hull.vertices,0], polygon.new_array[:, 0])
-
-
-"""polygon, set = SimplePolygon(polygon, set)
-print("Verticles of polygon: ",len(polygon.vertices), len(set), len(polygon.new_array))
-print("new of polygon: ", polygon.getNew_array())
-
-arr = polygon.getNew_array()
-#print(arr)
-#new_row =   # The row you want to add
-arr = np.vstack((arr, arr[0]))
-
-plt.plot(arr[:, 0], arr[:, 1], 'o')
-plt.plot(arr[:, 0], arr[:, 1], 'r--', lw=2)
-plt.show()
-"""
+#intersects = triangulate(polygon, array_for_hull)
+#print(intersects)
 
 
 
@@ -213,15 +150,3 @@ plt.show()
 
 
 
-
-
-
-
-#for _ in set:
-#    print(_)
-
-#polygon = Polygon(quickhull(points))
-
-# update points set to exclude polygon vertices
-#points = [x for x in points if x not in polygon.vertices]
-#print(type(set[0]), set[0])
