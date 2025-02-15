@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt # type: ignore
 import sys
 from typing import Union
 from point import Point
+import math
 
 class Line(object):
     """Represents a line in the form ax + by + c = 0.
@@ -108,7 +109,14 @@ class Segment(Line):
     """
     def getlength(self):
         return self.p.distance(self.q)
-
+    
+    def angle(self, other: 'Segment'): # wrong method
+        mauso = math.sqrt(other.lineVec[0]**2 + other.lineVec[1]**2) * math.sqrt(self.lineVec[0]**2 + self.lineVec[1]**2)
+        cos = (other.lineVec[0] * self.lineVec[0] + other.lineVec[1] * self.lineVec[1])/ mauso
+        angle = math.acos(cos)
+        print(angle, cos)
+        return abs(angle)
+    
     def distance1(self, pnt: 'Point'): # distance to the nearest point (start or end) of segment to the Point
         def dot(v, w):
             x, y = v

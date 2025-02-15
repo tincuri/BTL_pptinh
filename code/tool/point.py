@@ -27,8 +27,8 @@ class Point(object):
             Returns the coordinates of the point as a tuple.
         """
     def __init__(self, x: Union[int, float], y: Union[int, float]):
-        self.x = x
-        self.y = y
+        self.x = float(x)
+        self.y = float(y)
     
     def __str__(self):
         return str(f"({self.x}, {self.y})")
@@ -52,6 +52,9 @@ class Point(object):
     def coor(self):
         """Returns the coordinates of the point as a tuple."""
         return (float(self.x), float(self.y))
+    
+    def coor_plot(self):
+        return np.array([self.x, self.y])
     
     
 
