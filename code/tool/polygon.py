@@ -4,6 +4,7 @@ import sys
 from typing import Union
 from point import Point # type: ignore
 from line import Segment, Line, Ray
+import math
 
 import heapq
 
@@ -64,6 +65,67 @@ class Polygon:
             if (newseg1.intersect(edge) == True) or (newseg2.intersect(edge) == True):
                 return False
         return True
+    
+    def verticesType(self):
+        self.complex_vertices = []
+        for i in range(len(self.vertices)):
+            truoc = self.vertices[i-1]
+            hientai = self.vertices[i]
+            try:
+                sau = self.vertices[i+1]
+            except IndexError: # handle the last case
+                sau = self.vertices[0]
+
+            angle = self.newangle(truoc, hientai, sau)
+            #angle = canhsau.angle(canhtruoc)
+            if angle < math.pi:
+                if hientai.y > truoc.y and hientai.y > truoc.y:
+                    queue = [hientai, "start"]
+                elif hientai.y < truoc.y and hientai.y < sau.y:
+                    queue = [hientai, "end"]
+                else:
+                    queue = [hientai, "regular"]
+            elif angle > math.pi:
+                if hientai.y > truoc.y and hientai.y > truoc.y:
+                    queue = [hientai, "split"]
+                elif hientai.y < truoc.y and hientai.y < sau.y:
+                    queue = [hientai, "merge"]
+                else:
+                    queue = [hientai, "regular"]
+            else:
+                queue = [hientai, "regular"]
+            self.complex_vertices.append(queue)
+        return self.complex_vertices
+    
+    def newangle(self, p1: 'Point', p2: 'Point', p3: 'Point') -> float: # should be able to return angle from three points clock-wise
+        # still wrong, only export split/merge -> angle > pi? # fixed by changed degree to rad
+        # angle:   p1 --cw--> p2 --cw--> p3
+        vt12 = np.array([p1.coor()[0] - p2.coor()[0], p1.coor()[1] - p2.coor()[1]])
+        vt23 = np.array([p3.coor()[0] - p2.coor()[0], p3.coor()[1] - p2.coor()[1]])
+        if np.all(vt12 == 0) or np.all(vt23 == 0): # handle zero vectors
+            return 0 
+
+        dot_product = np.dot(vt12, vt23)
+        norm_v1 = np.linalg.norm(vt12)
+        norm_v2 = np.linalg.norm(vt23)
+
+        if norm_v1 == 0 or norm_v2 == 0:
+            return 0
+
+        cos_theta = dot_product / (norm_v1 * norm_v2)
+        theta_rad = math.acos(cos_theta)
+
+        cross_product_z = vt12[0] * vt23[1] - vt12[1] * vt23[0]
+
+        if cross_product_z < 0:  # v2 is clockwise from v1
+            # angle_deg = math.degrees(theta_rad) # Correct: No subtraction from 360
+            angle_deg = theta_rad
+        else:  # v2 is counter-clockwise from v1 or vectors are collinear
+            # angle_deg = 360 - math.degrees(theta_rad) if theta_rad != 0 else 0 # Correct: Subtract from 360
+            angle_deg = 2*math.pi - theta_rad
+
+        return angle_deg
+
     
     def __str__(self):
         pass
@@ -273,9 +335,92 @@ def SimplePolygon(polygon: 'Polygon', set: 'list', pos_vertices: 'list'):
 
     return polygon, set #, pos_vertices
 
-    
+def lastPoint(polygon: 'Polygon', set: 'list') -> 'tuple':
+    # the code is iterated so i need to create new function?
+    for point in set:
+        sap_push = None
+        min_distance = None
+        for edge in polygon.edges:
+            current_distance = edge.distance1(point)
+            if min_distance == None or current_distance < min_distance:
+                min_distance = current_distance
+                sap_push = [current_distance, point, edge, polygon.edges.index(edge)]
+
+        if polygon.canInsert(sap_push[1], sap_push[2]):
+            i = sap_push[3]
+            polygon.vertices.insert(i + 1, point) # index 0->n-1, insert 1->n
+            polygon.edges[i] = Segment(edge.p, point)
+            polygon.edges.insert(i + 1, Segment(point, edge.q))
+            #print(point) # for debug
+        set.remove(point)
+    return polygon, set
+
+
+
 """vertices = [Point(0, 0), Point(1, 0), Point(2,1), Point(-1, 1), Point(0, 2), Point(1, 2)]
 polygon = Polygon(vertices)
 d = Segment(Point(0, 3), Point(3, 0))
 print(polygon.intersect(d))
 """
+
+def NewSImplePolygon(polygon: 'Polygon', set: 'list', pos_vertices: 'list'):
+    """
+    combine lastPoint() and SimplePolygon"""
+    if not len(set) > 2:
+        return lastPoint(polygon, set)
+
+    distances = []
+    heapq.heapify(distances)
+
+    for edge in polygon.edges:
+        min_distance = None
+        for point in pos_vertices:
+            current_distance = edge.distance1(point)
+            if min_distance == None or current_distance < min_distance:
+                min_distance = current_distance
+                sap_push = [current_distance, point, edge]
+
+        #print(len(distances))
+        try:
+            heapq.heappush(distances, sap_push) # [(distance, point, segment)]
+        except TypeError: # case min_distance of two segments are one point.
+            pass
+
+    while pos_vertices != [] and distances != []:
+        current_distance = None
+        # get the current shortest distance and its corresponding edge-point pair
+        try:
+            current_distance = heapq.heappop(distances)
+            point = current_distance[1]
+            edge = current_distance[2]
+        except TypeError:
+            continue  # Skip if heap is empty or other type error
+
+
+        # proceed only if edge is in polygon, point is in interior, and it is a valid addition to the polygon
+        # point in set:
+        if current_distance != None: # for debug
+            inset = False
+            for _ in pos_vertices:
+                if point == _:
+                    inset = True
+        else: inset = False 
+
+        if inset == True and  polygon.canInsert(point, edge):
+            # get index of the edge
+            for poly_edge in polygon.edges:
+                if edge.p == poly_edge.p and edge.q == poly_edge.q:
+                    i = polygon.edges.index(poly_edge)
+
+            # insert new edges and point into the polygon,
+            # remove old edge from polygon and remove point from interior
+            polygon.vertices.insert(i + 1, point) # index 0->n-1, insert 1->n
+            polygon.edges[i] = Segment(edge.p, point)
+            polygon.edges.insert(i + 1, Segment(point, edge.q))
+
+            set.remove(point)
+            pos_vertices.remove(point)
+
+    return polygon, set #, pos_vertices
+
+
