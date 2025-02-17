@@ -72,23 +72,25 @@ struct dcel_edge *new_edge(struct dcel_vertex *org, struct dcel_vertex *des){
   return h_edge;
 }
 
-struct dcel_face *new_triangle(struct dcel_vertex *p1, struct dcel_vertex *p2, struct dcel_vertex *p3){
-  struct dcel_face *triangle_face;
-  struct dcel_edge *edge1, *edge2, *edge3;
-  triangle_face = malloc(sizeof(struct dcel_face));
-  triangle_face->type = TRIANGLE;
-  edge1 = new_edge(p1, p2);
-  edge2 = new_edge(p2, p3);
-  edge3 = new_edge(p3, p1);
-  next_prev(edge1, edge2);
-  next_prev(edge2, edge3);
-  next_prev(edge3, edge1);
-  edge1->IncidentFace = triangle_face;
-  edge2->IncidentFace = triangle_face;
-  edge3->IncidentFace = triangle_face;
-  triangle_face->incidented_edge = edge1;
-  return triangle_face;
-}
+/*struct dcel_face *new_triangle(struct dcel_vertex *p1, struct dcel_vertex *p2, struct dcel_vertex *p3){*/
+/*  struct dcel_face *triangle_face;*/
+/*  struct dcel_edge *edge1, *edge2, *edge3;*/
+/*  triangle_face = malloc(sizeof(struct dcel_face));*/
+/*  triangle_face->type = TRIANGLE;*/
+/*  edge1 = new_edge(p1, p2);*/
+/*  edge2 = new_edge(p2, p3);*/
+/*  edge3 = new_edge(p3, p1);*/
+/*  next_prev(edge1, edge2);*/
+/*  next_prev(edge2, edge3);*/
+/*  next_prev(edge3, edge1);*/
+/*  edge1->IncidentFace = triangle_face;*/
+/*  edge2->IncidentFace = triangle_face;*/
+/*  edge3->IncidentFace = triangle_face;*/
+/*  triangle_face->incidented_edge = edge1;*/
+/*  return triangle_face;*/
+/*}*/
+
+
 
 /* insert a half_edge to the list */
 void insert_node(struct node *head, struct dcel_edge *half_edge){
