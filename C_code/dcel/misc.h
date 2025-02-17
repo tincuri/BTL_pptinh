@@ -1,10 +1,10 @@
+#ifndef misc_h
+#define misc_h
 
+/*         functions prototype         */
 
-/*          Function prototype          */
+double angle(struct dcel_edge *edge1, struct dcel_edge *edge2);
+void sort_edge(struct dcel_edge **list_edge);
 
-struct dcel_vertex *scan_point(FILE *pos);
-
-int read_polygon_file(char *filename);
-
-int read_triangle_file(char *filename);
+#endif /* ifndef misc_H */
 

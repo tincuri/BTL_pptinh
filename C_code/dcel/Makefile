@@ -1,3 +1,7 @@
+test: make_dcel.c dcel.c scan.c misc.c
+	gcc -o dcel make_dcel.c dcel.c scan.c misc.c
+
+
 dcel: main.o dcel.o
 	gcc -o dcel main.o dcel.o
 
@@ -6,6 +10,12 @@ main.o: main.c dcel.h
 
 dcel.o: dcel.c dcel.h
 	gcc -c dcel.c 
+
+misc.o: misc.c misc.h dcel.h
+	gcc -c misc.c
+
+make_dcel.o: make_dcel.c make_dcel.h dcel.h
+	gcc -c make_dcel
 
 clean:
 	rm -f main.o dcel.o
