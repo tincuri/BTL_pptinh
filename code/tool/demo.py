@@ -79,7 +79,7 @@ def plotPolygon(polygon, array_for_hull, count: 'int'):
     arr = np.vstack((arr, arr[0]))
     plt.plot(array_for_hull[:, 0], array_for_hull[:, 1], 'o')
     plt.plot(arr[:, 0], arr[:, 1], 'r--', lw=2)
-    # plt.savefig(f"code/tool/figure/case_100_{count}.png")
+    # plt.savefig(f"code/tool/figure/simplepolygon/case_100_{count}.png")
     plt.show()
 
 def vonglap(set, polygon, array_for_hull, pos_vertices):
