@@ -15,6 +15,7 @@ struct point *scan_point(FILE *pos){
   if (fscanf(pos, "(%lf,%lf)", &x, &y) == 2) /* be sure that it work */
   return new_point(x, y);
 }
+
 struct dcel_vertex *scan_vertex(FILE *pos){
   double x, y;
   char ch;
@@ -34,5 +35,3 @@ struct dcel_edge *scan_edge(FILE *pos){
   if (fscanf(pos, "(%d,%d)", &x, &y) == 2) /* be sure that it work */
   return new_edge(vertex_list[x], vertex_list[y]);
 }
-
-
