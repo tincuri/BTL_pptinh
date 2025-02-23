@@ -1,9 +1,8 @@
+dcel: main.c make_dcel.c dcel.c scan.c misc.c
+	gcc -o dcel main.c make_dcel.c dcel.c scan.c misc.c
+
 test: make_dcel.c dcel.c scan.c misc.c
 	gcc -o dcel make_dcel.c dcel.c scan.c misc.c
-
-
-dcel: main.o dcel.o
-	gcc -o dcel main.o dcel.o
 
 main.o: main.c dcel.h 
 	gcc -c main.c

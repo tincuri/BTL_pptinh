@@ -4,35 +4,6 @@
 #include "dcel.h"
 #include "misc.h"
 
-/*          uncomment to check              */
-/*int main(int argc, char *argv[])*/
-/*{*/
-/*  struct dcel_vertex *o, *a, *c;*/
-/*  double x;*/
-/*  struct dcel_edge *D, *F, *G;*/
-/*  struct node *t;*/
-/**/
-/*  o = new_vertex(0,1);*/
-/*  a = new_vertex(2,3);*/
-/*  c = new_vertex(4, 5);*/
-/*  D = new_edge(o, a);*/
-/*  F = new_edge(o, c);*/
-/*  t = o->head->next;*/
-
-/* loop through list */
-
-/*  for (int i = 0; i < 3;t = t->next) { /* i is the time the loop hit head */
-/*    if (t == o->head) i++;*/
-/*    if (!(t == o->z || t == o->head)) { /* skip through the end and the head */
-/*    D = t->half_edge;*/
-/*    printf("node %g\n", D->Twin->Origin->x);*/
-/*    }*/
-/*  }*/
-/*  /*x = o->head->next->half_edge->Twin->Origin->x;*/
-/*  /*printf("%g\n", x);*/
-/*  return EXIT_SUCCESS;*/
-/*}*/
-
 /* create a new vertex and return it */
 struct dcel_vertex *new_vertex(double x, double y){
   struct dcel_vertex *new;
@@ -44,7 +15,6 @@ struct dcel_vertex *new_vertex(double x, double y){
   new->head->next = NULL;
   return new;
 }
-
 
 /* create a new half_edge and its twin */
 /* des for destination, org for origin, h_edge for half edge */

@@ -9,9 +9,9 @@
 /* some variable for stack */
 struct node *head, *z;
 /* face index of the 2 points */
-int face1;
-int face2;
-
+/*int face1;*/
+/*int face2;*/
+/**/
 int *dfsval;
 bool done = false;
 double angle(struct dcel_edge *edge1, struct dcel_edge *edge2){ /* return the angle between 2 edges */
@@ -45,7 +45,7 @@ void insert_node(struct node *head, struct dcel_edge *half_edge){
   return;
 }
 
-struct point *new_point(double x, double y){
+struct point *new_point(double x, double y){ /* the 2 points */
   struct point *p;
   p = malloc(sizeof(struct point));
   p->x = x; p->y = y;
@@ -86,59 +86,19 @@ enum orientation orientation(struct dcel_edge *h_edge, struct point *p){
     return CCW;
   else return CW;
 }
-/**/
-/*struct dcel_face *point_location(struct point *p){*/
-/*  struct dcel_edge *h_edge;*/
-/*  enum orientation o;*/
-/*  bool get = false;/* boolean to indicate that its finished */
-/*  int pass = 0; /* count the time it passed (3 being 3 h_edge pass the test aka the node is inside) */
-/**/
-/*  h_edge = f_edge;*/
-/*  do {*/
-/*  printf("(%d, %d) ", h_edge->Origin->index, h_edge->Twin->Origin->index);*/
-/*    o = orientation(h_edge, p);*/
-/*    if (h_edge->IncidentFace->type == OUTSIDE) {/* if it ever go outside */
-/*      h_edge = h_edge->Twin->Next;*/
-/*      pass = 0;*/
-/*      printf("outside\n");*/
-/*      continue;*/
-/*    }*/
-/*    if (o == CW && h_edge->Twin->IncidentFace->type == OUTSIDE) {*/
-/*      h_edge = h_edge->Twin->Next;*/
-/*      printf("edge case 1\n");*/
-/*      continue;*/
-/*    }*/
-/*    if (o == CW || o == LINE){*/
-/*      h_edge = h_edge->Twin;*/
-/*      pass = 0;*/
-/*      printf("failed\n");*/
-/*      continue;*/
-/*    } else {*/
-/*      h_edge = h_edge->Next;*/
-/*      printf("work\n");*/
-/*      pass++;*/
-/*    }*/
-/**/
-/*    if (pass == 3)*/
-/*      get = true;*/
-/*  } while (!get);*/
-/**/
-/*  return h_edge->IncidentFace;*/
-/*}*/
 
 int point_location(struct point *p){
   int k = 0, strike = 0;
   struct dcel_edge *h_edge, *f_edge; 
   enum orientation o;
+
   for (;k < face_count; k++) {
     strike = 0;
-  printf("%d\n", k);
     h_edge = face_list[k]->incidented_edge;
     f_edge = h_edge;
     do {
       o = orientation(h_edge, p);
       if (o == CCW) {
-        printf("ccw\n");
         strike++;
       } else break;
       h_edge = h_edge->Next;
@@ -147,20 +107,21 @@ int point_location(struct point *p){
       return k;
     }
   }
+  printf("One of the points is probably outside the polygon\n");
   return k;
 }
 
-
 void find_sleeve(void){
   int k = face1;
-  if (face1 > face_count || face2 > face_count) {
-    printf("failed\n");
+  if (face1 >= face_count || face2 >= face_count) {
+    printf("Failed\n");
     return ;
   }
   stack_init();
   listdfs();
   visit(k);
 }
+
 /* Depth-Fisrt Search */
 void listdfs(void){
   int k;
@@ -171,10 +132,9 @@ void listdfs(void){
 
 void visit(int k){
   struct graph_node *t;
-  /*printf("%d\n", k);*/
   dfsval[k] = 1;
   if (done) {
-    pop(); /* remove edge from the just ckecked node */
+    pop(); /* remove edge from the just checked node */
     return;
   }
   if (k == face2) {
@@ -190,6 +150,7 @@ void visit(int k){
     pop(); /* remove edge from the branch that failed */
   }
 }
+
 /////////////////////////////
 /* some function for stack */
 void push(struct dcel_edge *h_edge){
@@ -218,12 +179,11 @@ struct dcel_edge *pop(void){
 int stack_empty(void){
   return head->next == z;
 }
-
 ////////////////////////
+
 struct node *sort_edge(struct node *f_node){ 
   return MergeSort(f_node);
 }
-
 
 /* The code below is the linked list mergesort taken from geeksforgeeks */
 
