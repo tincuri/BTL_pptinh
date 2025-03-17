@@ -3,7 +3,8 @@
 
 /*       Structure        */
 
-enum orientation {CCW, LINE, CW}; /* enum for the relative position of the points */
+enum orientation { CCW, LINE, CW }; /* enum for the orientation of the points */
+
 struct point { /* structure of the 2 points */
   double x;
   double y;
@@ -21,8 +22,6 @@ struct graph_node {
   struct graph_node *next;
   struct dcel_edge *edge;
 };
-
-
 
 /*         functions prototype         */
 
@@ -47,9 +46,8 @@ int stack_empty(void);
 void listdfs(void);
 void visit(int k);
 /* mergesort */
-struct node* split(struct node* head);
-struct node* merge(struct node* first, struct node* second);
-struct node* MergeSort(struct node* head);
+struct node *split(struct node *head);
+struct node *merge(struct node *first, struct node *second);
+struct node *MergeSort(struct node *head);
 
 #endif /* ifndef misc_H */
-

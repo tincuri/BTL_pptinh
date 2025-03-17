@@ -1,7 +1,6 @@
 #ifndef make_dcel_h
 #define make_dcel_h
 
-
 /*          Function prototype          */
 
 int read_polygon_file(char *filename);
