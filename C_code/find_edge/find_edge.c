@@ -37,7 +37,6 @@ int main(int argc, char *argv[])
   for (int i = 0; i < vertex_number; i++)
       for (int j = 0; j < vertex_number; j++)
           edge_graph[i][j] = 0; 
-  printf("%d\n", vertex_number);
   read_file(infile);
   remove_border(vertex_number);
   print_result(vertex_number);
@@ -99,4 +98,6 @@ void remove_border(int vertex_number){
     edge_graph[i][i+1] = 0;
     edge_graph[i+1][i] = 0;
   }
+  edge_graph[0][vertex_number - 1] = 0;
+  edge_graph[vertex_number - 1][0] = 0;
 }

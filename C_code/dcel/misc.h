@@ -29,6 +29,7 @@ double angle(struct dcel_edge *edge1, struct dcel_edge *edge2);
 struct node *sort_edge(struct node *f_node);
 enum orientation orientation(struct dcel_edge *h_edge, struct point *p);
 int point_location(struct point *p);
+void edge_from_graph(int **edge_graph);
 /* Basic datastructure */
 
 /* linked list */

@@ -5,7 +5,7 @@ dcel: main.o make_dcel.o dcel.o scan.o misc.o
 	$(CC) -Wall -Wextra -o dcel -lm main.o make_dcel.o dcel.o scan.o misc.o $(LIB)
 
 seid: main.o make_dcel.o dcel.o scan.o misc.o
-	gcc -Wall -Wextra -o dcel -lm main.o make_dcel.o dcel.o scan.o misc.o ../seidel-1.0/tri.o ../seidel-1.0/misc.o ../seidel-1.0/construct.o ../seidel-1.0/monotone.o
+	gcc -Wall -Wextra -o dcel -lm main.o make_dcel.o dcel.o scan.o misc.o ../seidel-1.0/tri.o ../seidel-1.0/misc.o ../seidel-1.0/construct.o ../seidel-1.0/monotone.o ../find_edge/find_edge.o
 
 test: make_dcel.c dcel.c scan.c misc.c
 	$(CC) -o dcel make_dcel.c dcel.c scan.c misc.c

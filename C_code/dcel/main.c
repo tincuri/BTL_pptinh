@@ -61,8 +61,10 @@ int main(int argc, char *argv[]) {
     printf("triangle #%d: %d %d %d\n", i, 
     op[i][0], op[i][1], op[i][2]);
   /*triangulate_polygon(1, contour_count, vertex_array, triangles);*/
-  read_edge_file(argv[2]);
-  read_point_file(argv[3]);
+  get_edges(op, ntriangles);
+  edge_from_graph(edge_graph);
+  /*read_edge_file(argv[2]);*/
+  read_point_file(argv[2]);
   create_dcel();
   face1 = point_location(p1);
   face2 = point_location(p2);

@@ -255,3 +255,15 @@ struct node *MergeSort(struct node *head) {
   // Merge the two sorted halves
   return merge(head, second);
 }
+void edge_from_graph(int **edge_graph){
+  int count = 0;
+  for (int i = 0; i < vertex_count; i++) {
+    for (int j = 0; j < i; j++) {
+      if (edge_graph[i][j] == 1) {
+        new_edge(vertex_list[i], vertex_list[j]);
+        count++;
+      }
+    }
+  }
+  printf("%d\n", count);
+}
