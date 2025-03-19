@@ -24,7 +24,7 @@ struct dcel_vertex *scan_vertex(FILE *pos) {
   while (isspace(ch = fgetc(pos)))
     ;                                        // Skip whitespace
   ungetc(ch, pos);                           // Put back the non-space character
-  if (fscanf(pos, "(%lf,%lf)", &x, &y) == 2) /* be sure that it work */
+  if (fscanf(pos, "%lf %lf", &x, &y) == 2) /* be sure that it work */
     return new_vertex(x, y);
   return NULL;
 }

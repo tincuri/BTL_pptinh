@@ -6,6 +6,7 @@
 #include "make_dcel.h"
 #include "misc.h"
 #include "scan.h"
+#include "../seidel-1.0/triangulate.h"
 
 /*removed the z node*/
 
@@ -36,7 +37,10 @@ int read_polygon_file(char *filename) {
     return -1;
   } /* error checking */
 
+  int buffer;
+  fscanf(infile, "%d", &buffer); /* read the first row */
   /* make the first edge */
+  fgetc(infile);
   first = scan_vertex(infile);
   second = scan_vertex(infile);
   one = second;
@@ -45,21 +49,18 @@ int read_polygon_file(char *filename) {
   edge1 = new_edge(first, second);
   f_edge = edge1;
 
-  while ((ch = fgetc(infile)) != '\n') { /*stop at each line */
-    if (ch == '\r') {                    /* combat with the CRLF nonsense */
-      fgetc(infile);
+  do {
+    if ((ch = fgetc(infile)) == EOF) {
       break;
     }
     ungetc(ch, infile);
-
     two = scan_vertex(infile);
     edge2 = new_edge(one, two);
     next_prev(edge1, edge2);
     edge1 = edge2;
     one = two;
     vertex_count++;
-  }
-
+  } while (fgetc(infile) != EOF);
   l_edge = new_edge(one, first); /* last edge */
   next_prev(edge2, l_edge);
   next_prev(l_edge, f_edge);

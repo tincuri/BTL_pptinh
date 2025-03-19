@@ -117,7 +117,8 @@ int point_location(struct point *p) {
       return k;
     }
   }
-  printf("One of the points is probably outside the polygon\n");
+  fprintf(stderr, "One or all of the points is probably outside the polygon\n");
+  exit(EXIT_FAILURE);
   return k;
 }
 
@@ -254,4 +255,15 @@ struct node *MergeSort(struct node *head) {
 
   // Merge the two sorted halves
   return merge(head, second);
+}
+void edge_from_graph(int **edge_graph){
+  int count = 0;
+  for (int i = 0; i < vertex_count; i++) {
+    for (int j = 0; j < i; j++) {
+      if (edge_graph[i][j] == 1) {
+        new_edge(vertex_list[i], vertex_list[j]);
+        count++;
+      }
+    }
+  }
 }
