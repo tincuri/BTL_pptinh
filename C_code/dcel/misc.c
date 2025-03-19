@@ -117,7 +117,8 @@ int point_location(struct point *p) {
       return k;
     }
   }
-  printf("One of the points is probably outside the polygon\n");
+  fprintf(stderr, "One or all of the points is probably outside the polygon\n");
+  exit(EXIT_FAILURE);
   return k;
 }
 
@@ -265,5 +266,4 @@ void edge_from_graph(int **edge_graph){
       }
     }
   }
-  printf("%d\n", count);
 }

@@ -81,6 +81,25 @@ int main(argc, argv)
  * this routine
  */
 
+int triangulate_from_file(int (*op)[3],char *filename){
+
+  int n, nmonpoly, genus;
+  int i, ntriangles;
+
+
+  if ((n = read_segments(filename, &genus)) < 0)
+    {
+      fprintf(stderr, "usage: triangulate <filename>\n");
+      exit(1);
+    }
+
+  initialise(n);
+  construct_trapezoids(n);
+  nmonpoly = monotonate_trapezoids(n);
+  ntriangles = triangulate_monotone_polygons(n, nmonpoly, op);
+
+  return ntriangles;
+}
 
 int triangulate_polygon(ncontours, cntr, vertices, triangles)
      int ncontours;

@@ -140,11 +140,11 @@ extern segment_t seg[SEGSIZE];		/* Segment table */
 
 /* Functions */
 
-int triangulate_polygon(ncontours, cntr, vertices, triangles);
 int monotonate_trapezoids(int);
 int triangulate_monotone_polygons(int, int, int (*)[3]);
-int read_segments(filename, genus);
-int initialise(n);
+int initialise(int n);
+int triangulate_from_file(int (*op)[3], char *filename);
+int is_point_inside_polygon(double *);
 
 int _greater_than(point_t *, point_t *);
 int _equal_to(point_t *, point_t *);
