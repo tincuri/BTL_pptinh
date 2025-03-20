@@ -1,4 +1,4 @@
-#include <triangulate.h>
+#include "triangulate.h"
 #include <sys/time.h>
 #include <math.h>
 
@@ -71,9 +71,10 @@ int read_segments(filename, genus)
       return -1;
     }
 
-  fscanf(infile, "%d", &ncontours);
-  if (ncontours <= 0)
-    return -1;
+  /*fscanf(infile, "%d", &ncontours);*/
+  /*if (ncontours <= 0)*/
+  /*  return -1;*/
+  ncontours = 1;
   
   /* For every contour, read in all the points for the contour. The */
   /* outer-most contour is read in first (points specified in */

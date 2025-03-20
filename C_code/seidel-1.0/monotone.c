@@ -1,4 +1,4 @@
-#include <triangulate.h>
+#include "triangulate.h"
 #include <math.h>
 #include <string.h>
 

@@ -1,10 +1,19 @@
-#include "triangulate.h"
 #include <sys/time.h>
 #include <string.h>
 #include "interface.h"
+#include "triangulate.h"
 
+/**/
+/*void write_result(int op[SEGSIZE][3], int ntriangles) {*/
+/*  FILE *infile;*/
+/*  infile = fopen("triangles.txt", "w");*/
+/*  fprintf(infile, "%d\n", ntriangles);*/
+/*  for (int i = 0; i < ntriangles; i++)*/
+/*    fprintf(infile, "%d %d %d\n", */
+/*	   op[i][0] - 1, op[i][1] - 1, op[i][2] - 1);*/
+/*}*/
 
-static int initialise(n)
+int initialise(n)
      int n;
 {
   register int i;
@@ -26,6 +35,7 @@ int main(argc, argv)
   int n, nmonpoly, genus;
   int op[SEGSIZE][3], i, ntriangles;
 
+
   if ((argc < 2) || ((n = read_segments(argv[1], &genus)) < 0))
     {
       fprintf(stderr, "usage: triangulate <filename>\n");
@@ -39,7 +49,8 @@ int main(argc, argv)
 
   for (i = 0; i < ntriangles; i++)
     printf("triangle #%d: %d %d %d\n", i, 
-	   op[i][0], op[i][1], op[i][2]);
+	   op[i][0] - 1, op[i][1] - 1, op[i][2] - 1);
+  /*write_result(op, ntriangles);*/
 
   return 0;
 }
@@ -70,6 +81,25 @@ int main(argc, argv)
  * this routine
  */
 
+int triangulate_from_file(int (*op)[3],char *filename){
+
+  int n, nmonpoly, genus;
+  int i, ntriangles;
+
+
+  if ((n = read_segments(filename, &genus)) < 0)
+    {
+      fprintf(stderr, "usage: triangulate <filename>\n");
+      exit(1);
+    }
+
+  initialise(n);
+  construct_trapezoids(n);
+  nmonpoly = monotonate_trapezoids(n);
+  ntriangles = triangulate_monotone_polygons(n, nmonpoly, op);
+
+  return ntriangles;
+}
 
 int triangulate_polygon(ncontours, cntr, vertices, triangles)
      int ncontours;

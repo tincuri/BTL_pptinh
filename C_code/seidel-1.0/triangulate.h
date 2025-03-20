@@ -140,20 +140,23 @@ extern segment_t seg[SEGSIZE];		/* Segment table */
 
 /* Functions */
 
-extern int monotonate_trapezoids(int);
-extern int triangulate_monotone_polygons(int, int, int (*)[3]);
+int monotonate_trapezoids(int);
+int triangulate_monotone_polygons(int, int, int (*)[3]);
+int initialise(int n);
+int triangulate_from_file(int (*op)[3], char *filename);
+int is_point_inside_polygon(double *);
 
-extern int _greater_than(point_t *, point_t *);
-extern int _equal_to(point_t *, point_t *);
-extern int _greater_than_equal_to(point_t *, point_t *);
-extern int _less_than(point_t *, point_t *);
-extern int locate_endpoint(point_t *, point_t *, int);
-extern int construct_trapezoids(int);
+int _greater_than(point_t *, point_t *);
+int _equal_to(point_t *, point_t *);
+int _greater_than_equal_to(point_t *, point_t *);
+int _less_than(point_t *, point_t *);
+int locate_endpoint(point_t *, point_t *, int);
+int construct_trapezoids(int);
 
-extern int generate_random_ordering(int);
-extern int choose_segment(void);
-extern int read_segments(char *, int *);
-extern int math_logstar_n(int);
-extern int math_N(int, int);
+int generate_random_ordering(int);
+int choose_segment(void);
+int read_segments(char *, int *);
+int math_logstar_n(int);
+int math_N(int, int);
 
 #endif /* triangulate_h */
