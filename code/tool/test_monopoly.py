@@ -49,7 +49,7 @@ def plotTriangulate(for_plot: 'tuple', count: 'int'):
         x_values, y_values = diagonal
         plt.plot(x_values, y_values, 'k-', lw=2)
     #plt.savefig(f"code/tool/figure/triangulation/case_100_{count}.png")
-    #plt.show() # show origin simple polygon
+    plt.show() # show origin simple polygon
 
 def sortQueue(a: 'list')->list:
     """
@@ -122,7 +122,7 @@ def makeMonotone(polygon: 'Polygon'): # a: 'List' --> queue = [vertex: 'Point', 
                     for_plot.append((x_values, y_values))
                     
                     line_inserted += 1
-                    #plotTriangulate(for_plot, line_inserted)
+                    plotTriangulate(for_plot, line_inserted)
 
                     diags.append((prev_ver, next_ver))
 
@@ -136,12 +136,19 @@ def makeMonotone(polygon: 'Polygon'): # a: 'List' --> queue = [vertex: 'Point', 
             break
     #print(diags)
     print("Lines will be inserted: ", line_inserted)
-    return final_triangles
+    return diags#, final_triangles
     
 
 
-triangles = makeMonotone(polygon)
-
+#triangles = makeMonotone(polygon)
+list_of_vertex = polygon.vertices
+diagonals = makeMonotone(polygon)
+forldm = [] # contain (i_a, i_b) are index of each diagonal
+for diagonal in diagonals:
+    first = list_of_vertex.index(diagonal[0])
+    second = list_of_vertex.index(diagonal[1])
+    forldm.append((first, second))
+print(forldm)
 # write txt for C code
 
 """f = open("code/tool/15points_testt.txt", "w")
@@ -154,7 +161,7 @@ for triangle in triangles:
 
 
 
-
+#print(triangles)
 
 
 
