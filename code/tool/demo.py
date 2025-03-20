@@ -9,13 +9,14 @@ from typing import Union
 import heapq
 from polygon import Polygon, SimplePolygon, lastPoint # type: ignore
 from scipy.spatial import ConvexHull, convex_hull_plot_2d # type: ignore
+from triangulate import triangulate
 
 def newset(points: 'np.ndarray'):
     return [Point(_[0], _[1]) for _ in points]
 
 
 # take input from test.txt
-f = open("code/tool/test.txt", "r")
+f = open("tool/30points.txt", "r")
 
 # insert input points to list
 set = [] # set of all points which hasn't become verticle
@@ -125,6 +126,14 @@ for vertex in polygon.vertices:
     f.write(xau)
     f.write("\n")"""
 
+f = open("tool/go_triangulate_30p.txt", 'w')
+for edge in polygon.edges:
+    ax, ay = edge.px, edge.py
+    
+    bx, by = edge.qx, edge.qy
+    xau = str(ax) + " " + str(ay) + " " + str(bx) + " " + str(by)
+    f.write(xau)
+    f.write("\n")
 
 ### NEW
 
