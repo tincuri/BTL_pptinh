@@ -32,7 +32,7 @@ for i in range(n):
 # --- LINE 2: SOURCE AND DESTINATION: xS yS xD yD (???)
 # --- LINE 3 TO THE END: DIAG: xA yA xB yB (MAYBE FIX LATER DEPEND ON C OUTPUT FILE)
 
-f = open("code/tool/finaltest.txt", "r")
+f = open("code/tool/ldm.txt", "r")
 diagonals = []
 n = int(f.readline())
 for i in range(n):
@@ -49,16 +49,27 @@ for i in range(n):
 
 ### ASSUME THAT WE HAVE A POLYGON HERE (BUT NOW WE HAVEN'T)
 
+### TEST CASE
 # list of points (get from polygon/sleeve)
-points = [(1, 5), (3,7), (4, 3), (5, 6), (6, 0), (6, 2), (9, 1), (9, 3), (10, 4), (12, 2), (11, 6), (13, 4), (13, 7)]
+# points = [(1, 5), (3,7), (4, 3), (5, 6), (6, 0), (6, 2), (9, 1), (9, 3), (10, 4), (12, 2), (11, 6), (13, 4), (13, 7)] # finaltest's points
+# points = [(0, 10), (2, 9), (0, 8), (3, 7), (2, 5), (5, 7), (3, 4), (5, 7), (4, 2), (7, 5), (9, 3), (7, 5), (10, 6), (8, 7), (10, 6), (12, 9), (11, 5), (13, 6)] # leepaper's points
+plot_diag = diagonals.copy()
+
 
 # polygon vertex
-vertexes = [(1, 5), (3, 7), (5, 6), (6, 2), (9, 3), (10, 4), (11, 6), (13, 7), (13, 4), (12, 2), (9, 1), (6, 0), (4, 3), (1, 5)]
+#vertexes = [(1, 5), (3, 7), (5, 6), (6, 2), (9, 3), (10, 4), (11, 6), (13, 7), (13, 4), (12, 2), (9, 1), (6, 0), (4, 3), (1, 5)] # finaltest's vertex
+#vertexes = [(0, 10), (2, 9), (3, 7), (5, 7), (7, 5), (8, 7), (12, 9), (13, 6), (11, 5), (10, 6), (9, 3), (4, 2), (3, 4), (2, 5), (0, 8), (0, 10)] # leepaper's vertex
+vertexes = [(0.0774155313078, 0.8113376396024), (0.0681084508445, 0.4855898233843), (0.2011792554782, 0.2525821297921), (0.0805178914623, 0.0977948040772), (0.356627945209, 0.1008971642316), (0.5041553935497, 0.3536057313367), (0.5489742747854, 0.109873562687), (0.7816512863697, 0.1288184056217), (0.7382182442073, 0.5263142984417), (0.8530055699222, 0.5380308195229), (0.8933362519302, 0.1195113251584), (0.9522810948648, 0.4049284593684), (0.8530055699222, 0.693447953733), (0.6917459529319, 0.6624243521884), (0.3162972632011, 0.7927234786756), (0.1859981367139, 0.6314007506438), (0.4935255850546, 0.6596842295626), (0.2914783819654, 0.4521567812219), (0.1704863359416, 0.4321567825897), (0.0774155313078, 0.8113376396024)] # 15 points test case
 
 
+
+### FUNCTION
 
 # RETURN TRUE IF A->B->C CCW, FALSE IF THEY'RE NOT
-def isccw_x(a, b, c) -> bool:
+def isccw_x(a, b, c):
+    # handle straight case
+    #if (a[0] - b[0]) * (a[1] - c[1])  == (a[1] - b[1]) * (a[0] - c[0]) :
+    #    return "straight" # false if straight
     return (c[1]-a[1]) * (b[0]-a[0]) > (b[1]-a[1]) * (c[0]-a[0])
 
 # plot the last time ( result ) # TWO IMAGE, FIRST WITH DIAGONALS, SECOND (RESULT) WITHOUT DIAGONALS
@@ -71,17 +82,25 @@ def lastplot(road: 'list', count: 'int'):
     plt.plot(vertex_x, vertex_y, color='#000000', linestyle='-')
 
     # points and diag
-    x = [point[0] for point in points]
+    x = []
+    y = []
+    for diag in plot_diag:
+        x = [point[0] for point in diag]
+        y = [point[1] for point in diag]
+        plt.scatter(x, y, marker='p', color='blue')
+        plt.plot(x, y, color='#000000', linestyle='--')
+
+    """x = [point[0] for point in points]
     y = [point[1] for point in points]
     plt.scatter(x, y, marker='p', color='blue')
-    plt.plot(x, y, color='#000000', linestyle='--')
+    plt.plot(x, y, color='#000000', linestyle='--')"""
 
     # Shortest way
     x_road = [point[0] for point in road]
     y_road = [point[1] for point in road]
     plt.scatter(x_road, y_road, marker='s', color='black')
     plt.plot(x_road, y_road, color='red')
-    #plt.savefig(f"code/tool/figure/lee/case_in_debug_{count}.png")
+    plt.savefig(f"code/tool/figure/lee/example2/example_2_{count}.png")
     #plt.show()
 
 
@@ -100,7 +119,8 @@ def lastplot(road: 'list', count: 'int'):
     y_road = [point[1] for point in road]
     plt.scatter(x_road, y_road, marker='s', color='black')
     plt.plot(x_road, y_road, color='red')
-    #plt.savefig(f"code/tool/figure/lee/case_in_debug_{count}.png")
+    plt.savefig(f"code/tool/figure/lee/example2/example_2_{count}.png")
+    plt.show
 
 # PLOT TO INSERT TO THE REPORT
 def plotTriangulate(upper: 'list', lower: 'list', road: 'list', count: 'int'):
@@ -112,10 +132,19 @@ def plotTriangulate(upper: 'list', lower: 'list', road: 'list', count: 'int'):
     plt.plot(vertex_x, vertex_y, color='#000000', linestyle='-')
 
     # points and diag
-    x = [point[0] for point in points]
+    x = []
+    y = []
+    for diag in plot_diag:
+        x = [point[0] for point in diag]
+        y = [point[1] for point in diag]
+        plt.scatter(x, y, marker='p', color='blue')
+        plt.plot(x, y, color='#000000', linestyle='--')
+
+
+    """x = [point[0] for point in points]
     y = [point[1] for point in points]
     plt.scatter(x, y, marker='p', color='blue')
-    plt.plot(x, y, color='#000000', linestyle='--')
+    plt.plot(x, y, color='#000000', linestyle='--')"""
 
     # Upper branch
     x_up = [point[0] for point in upper]
@@ -132,7 +161,7 @@ def plotTriangulate(upper: 'list', lower: 'list', road: 'list', count: 'int'):
     y_road = [point[1] for point in road]
     plt.scatter(x_road, y_road, marker='s', color='black')
     plt.plot(x_road, y_road, color='red')
-    #plt.savefig(f"code/tool/figure/lee/case_in_debug_{count}.png")
+    plt.savefig(f"code/tool/figure/lee/example2/example_2_{count}.png")
     #plt.show()
 
 
@@ -141,27 +170,29 @@ def plotTriangulate(upper: 'list', lower: 'list', road: 'list', count: 'int'):
 count = 0 # for save figure
 
 # INITIAL
-road = [points[0]] # list of cusp or final path
-cusp = points[0] # LET source be the cusp
-global_upper_branch = [points[0]]
-global_lower_branch = [points[0]]
+road = [source] # list of cusp or final path
+cusp = source # LET source be the cusp
+global_upper_branch = [source]
+global_lower_branch = [source]
 
 up_turn = None # store the turn of two convex (can be inferenced)
-state = 1 # 1 mean to check from upper first, 0 mean to check from lower first
 
 # GENERAL STEP
 
-def general_step(diagonal: 'list', cusp: 'tuple', upper_branch: 'list', lower_branch: 'list', state: 'int'):
+def general_step(diagonal: 'list', cusp: 'tuple', upper_branch: 'list', lower_branch: 'list'):
     linked = False # True if point is added
     if len(upper_branch) < 2 and len(lower_branch) < 2: # case: only contains cusp, state don't change
         upper_branch.insert(0, diagonal[0])
         lower_branch.insert(0, diagonal[1])
     elif len(upper_branch) < 2: # case new cusp is last point of lower_branch (but now it is upper(local))
         upper_branch.insert(0, diagonal[1])
-        state = 1 - state # switch state
+        linked = True
     else: # generally case
         # get the turn of two branch
-        up_to_low = isccw_x(upper_branch[-2], cusp, lower_branch[-2])
+        try: # handle case len(lower_branch) = 0
+            up_to_low = isccw_x(upper_branch[-2], cusp, lower_branch[-2])
+        except IndexError:
+            up_to_low = isccw_x(upper_branch[-2], cusp, cusp)
         if up_to_low: # up_to_low is true = ccw
             up_turn = False # up_turn nguoc chieu -> cw
         else:
@@ -174,12 +205,10 @@ def general_step(diagonal: 'list', cusp: 'tuple', upper_branch: 'list', lower_br
                 if maybe == True: # this mean you need to delete some point
                     del upper_branch[:index] # delete points from 0->index-1 (not include index)
                     upper_branch.insert(0, diagonal[1])
-                    state = 1 - state # switch state
                     linked = True # to break
                     break
                 else:
                     upper_branch.insert(0, diagonal[1])
-                    state = 1 - state
                     linked = True
                     break
             elif isccw_x(diagonal[1], upper_branch[index], upper_branch[index+1]) != up_turn: # this mean to ADD HERE
@@ -187,38 +216,60 @@ def general_step(diagonal: 'list', cusp: 'tuple', upper_branch: 'list', lower_br
                     maybe = True
         # cusp case aka u_n
         if linked == False: # this mean to check cusp case
-            if isccw_x(diagonal[1], upper_branch[-2], cusp) == up_to_low:
+            if len(lower_branch) < 2:
+                upper_branch = [diagonal[1], cusp]
+                linked = True
+            elif isccw_x(diagonal[1], upper_branch[-2], cusp) == up_to_low:
                 if isccw_x(diagonal[1], lower_branch[-2], cusp) != up_to_low:
                     upper_branch = [diagonal[1], cusp] # update upper branch
-                    state = 1 - state # switch state
                     linked = True # to break
         # lower_branch
-        if linked == False: # mean to check lower branch
+        if linked == False: # mean to check lower branch 
             for index in range(-1, -len(lower_branch), -1):  # Iterate backwards from u(n+1) to u(0)
                 if isccw_x(diagonal[1], lower_branch[index], lower_branch[index-1]) == up_turn: # this mean to ADD HERE
-                    
                     cusp = lower_branch[index-1] # NEW CUSP
                     road.append(cusp) # save cusp
                     upper_branch = [diagonal[1], cusp]
                     del lower_branch[index:] # delete points from index->end (not include index)
-                    state = 1 - state # switch state
                     linked = True # to break
                     break
 
-    print("Upper: ", upper_branch)
-    print("Lower: ", lower_branch)
-    print("-----------------------------------------------")
-    print("-----------------------------------------------")
-    print("-----------------------------------------------")
-    return cusp, upper_branch, lower_branch, state
+    #print("Upper: ", upper_branch)
+    #print("Lower: ", lower_branch)
+    #print("-----------------------------------------------")
+    #print("-----------------------------------------------")
+    #print("-----------------------------------------------")
+    if linked == False:
+        print("FAIL!!!")
+    return cusp, upper_branch, lower_branch
             
-
+last_zero = None
+last_state = None
+timesss = 0
 for diagonal in diagonals: # check diagonal one by one
     print("Current diagonal: ", diagonal)
+    if timesss == 0: # initial case
+            global_upper_branch.insert(0, diagonal[0])
+            global_lower_branch.insert(0, diagonal[1])
+            timesss += 1
+
+    if diagonal[0] == global_upper_branch[0] or diagonal[1] == global_upper_branch[0]: # this mean upper branch has reach current diagonal no need to change
+        # so we check lower branch first
+        cusp, global_lower_branch, global_upper_branch = general_step(diagonal, cusp, global_lower_branch, global_upper_branch)
+    elif diagonal[0] == global_lower_branch[0] or diagonal[1] == global_lower_branch[0]:
+        cusp, global_upper_branch, global_lower_branch = general_step(diagonal, cusp, global_upper_branch, global_lower_branch)
+    else: # case only contain cusp or FAIL:
+        if len(global_upper_branch) == 1 and len(global_lower_branch) == 1: # ensure not FAIL
+            global_upper_branch.insert(0, diagonal[0])
+            global_lower_branch.insert(0, diagonal[1])
+
+        else:
+            print("yowaimushi")
+    """print("Current diagonal: ", diagonal)
     if state == 1:
-        cusp, global_upper_branch, global_lower_branch, state = general_step(diagonal, cusp, global_upper_branch, global_lower_branch, state)
+        cusp, global_upper_branch, global_lower_branch = general_step(diagonal, cusp, global_upper_branch, global_lower_branch)
     else: # state == 0:
-        cusp, global_lower_branch, global_upper_branch, state = general_step(diagonal, cusp, global_lower_branch, global_upper_branch, state)
+        cusp, global_lower_branch, global_upper_branch = general_step(diagonal, cusp, global_lower_branch, global_upper_branch)"""
     plotTriangulate(upper=global_upper_branch, lower=global_lower_branch, road=road, count=count)
     count += 1
 
