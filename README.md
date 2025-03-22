@@ -6,17 +6,12 @@ You will need gcc (or a compiler of your choice, make sure to change the Makefil
 
 ## Usage
 ### Find the Sleeve
-Because the difference between OSes, please rebuild the binary files. 
-First go to C_code/find_edge and build .o file
-```
-gcc -c find_edge.c
-```
-at C_code/seidel-1.0
+Because the difference between OSes, please rebuild the binary files. First, build the triangulation lib at C_code/seidel-1.0
 ```
 make clean
 make lib
 ```
-at C_code/dcel, you can choose one of the 2 binaries to build, one with build-in triangulation, and one without. Choose one of the two lines below, the name should be clear enough
+Then, at C_code/dcel, you can choose one of the 2 binaries to build, one with build-in triangulation, and one without. Choose one of the two lines below, the name should be clear enough
 ```
 make sleeve
 make sleeve_no_tri
@@ -27,4 +22,4 @@ gcc -lm main.c make_dcel.c dcel.c scan.c misc.c ../seidel-1.0/tri.c ../seidel-1.
 gcc -lm main_no_tri.c make_dcel.c dcel.c scan.c misc.c -o sleeve_no_tri
 ```
 The code is not that long so it would not take to long to compile.
-Now you can run the binary with the same name (just run it dry for each usages) to get the sleeve by giving them some files.
+Now you can run the binary with the same name (just run it dry for the usage) to get the sleeve by giving them some files.
