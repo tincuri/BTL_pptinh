@@ -5,6 +5,7 @@ The paper that we are implementing is ["Euclidean shortest paths in the presence
 You will need gcc (or a compiler of your choice, make sure to change the Makefile), make.
 
 ## Usage
+### Find the Sleeve
 Because the difference between OSes, please rebuild the binary files. 
 First go to C_code/find_edge and build .o file
 ```
@@ -20,4 +21,10 @@ at C_code/dcel, you can choose one of the 2 binaries to build, one with build-in
 make sleeve
 make sleeve_no_tri
 ```
+or without make, you can just compile all the file together with one of these command below
+```
+gcc -lm main.c make_dcel.c dcel.c scan.c misc.c ../seidel-1.0/tri.c ../seidel-1.0/monotone.c ../seidel-1.0/construct.c ../seidel-1.0/misc.c ../find_edge/find_edge.c  -o sleeve
+gcc -lm main_no_tri.c make_dcel.c dcel.c scan.c misc.c -o sleeve_no_tri
+```
+The code is not that long so it would not take to long to compile.
 Now you can run the binary with the same name (just run it dry for each usages) to get the sleeve by giving them some files.
