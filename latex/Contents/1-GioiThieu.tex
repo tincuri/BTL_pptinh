@@ -1,3 +1,11 @@
 \section{Giới thiệu}
-\subsection{Đặt vấn đề}
+\subsection{Giới thiệu đề tài}
+Trong lập trình Robot tự động, việc tìm đường đi ngắn nhất giữa hai điểm giúp tiết kiệm tài nguyên, năng lượng, và thời gian. Điều này không chỉ nâng cao hiệu suất làm việc của Robot mà còn tối ưu hóa lợi nhuận trong nhiều ứng dụng thực tế. 
+
+Trong bài viết này, nhóm chúng em sẽ nghiên cứu và triển khai thuật toán của D. T. Lee và F. P. Preparata nhằm tìm đường đi ngắn nhất trong một đa giác đơn (\textit{simple polygon}). Thuật toán này giúp cải thiện đáng kể thời gian xử lý so với các phương pháp truyền thống, có nhiều ứng dụng trong lĩnh vực robot tự động và điều hướng thông minh.
+
 \subsection{Các hướng giải quyết liên quan}
+
+Bài toán tìm đường đi ngắn nhất giữa hai điểm phân biệt ($s$: điểm bắt đầu, $t$: điểm kết thúc) trong mặt phẳng 2D là một trong những bài toán quan trọng của lý thuyết đồ thị và hình học tính toán. Có nhiều phương pháp tiếp cận bài toán này, trong đó phương pháp cổ điển sử dụng thuật toán Dijkstra trên đồ thị visbility graph, với độ phức tạp $O(n^2)$.
+
+Tuy nhiên, thuật toán của Lee và Preparata cho phép tìm đường đi ngắn nhất trong một đa giác đơn với thời gian $O(n)$ nếu bỏ qua bước tiền xử lý tam giác hóa. Như vậy, tổng độ phức tạp của thuật toán phụ thuộc vào quá trình tam giác hóa đa giác. Hiện nay, đã có những nghiên cứu chỉ ra rằng có thể tam giác hóa một đa giác đơn trong thời gian $O(n)$ \cite{Triangulate_linear}. Do đó, thuật toán Lee và Preparata kết hợp với phương pháp tam giác hóa nhanh có thể là một giải pháp hiệu quả để giải quyết bài toán này.

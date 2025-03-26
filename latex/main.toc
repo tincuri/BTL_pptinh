@@ -1,16 +1,20 @@
 \thispagestyle {empty}
 \contentsline {section}{\numberline {1}Giới thiệu}{1}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Đặt vấn đề}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.1}Giới thiệu đề tài}{1}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Các hướng giải quyết liên quan}{1}{subsection.1.2}%
-\contentsline {section}{\numberline {2}Cơ sở lý thuyết và công nghệ}{2}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Cơ sở lý thuyết}{2}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Công nghệ}{2}{subsection.2.2}%
-\contentsline {section}{\numberline {3}Thực hành}{3}{section.3}%
-\contentsline {subsection}{\numberline {3.1}A}{3}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}B}{3}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}C}{3}{subsubsection.3.1.2}%
-\contentsline {section}{\numberline {4}Tổng kết}{4}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Nhận xét}{4}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Hướng phát triển}{4}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Tài liệu tham khảo}{4}{section.5}%
-\contentsline {section}{\numberline {6}Phụ lục}{5}{section.6}%
+\contentsline {section}{\numberline {2}Cơ sở lý thuyết}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Các định nghĩa và bổ đề}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Thuật toán đề xuất}{3}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Triển khai thuật toán}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Tam giác hóa}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Dual tree}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Sleeve}{7}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Lee \& Preparata}{7}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Kết quả}{7}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Độ phức tạp của các thuật toán}{7}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Thời gian chạy thực tế}{7}{subsubsection.3.5.2}%
+\contentsline {section}{\numberline {4}Tổng kết}{8}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Nhận xét}{8}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Hướng phát triển}{8}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Tài liệu tham khảo}{8}{section.5}%
+\contentsline {section}{\numberline {6}Phụ lục}{9}{section.6}%

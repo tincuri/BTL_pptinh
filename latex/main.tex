@@ -34,8 +34,11 @@
 \usepackage{setspace}
 \usepackage{epsfig}
 \usepackage{tikz}
+\usepackage{algorithm2e}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 
-\usetikzlibrary{arrows,snakes,backgrounds,calc}
+\usetikzlibrary{arrows,snakes,backgrounds,calc,intersections}
 \usepackage[unicode]{hyperref}
 \hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
 \usepackage{listings}
@@ -44,6 +47,7 @@
 
 \usepackage[normalem]{ulem}
 
+\newtheorem{definition}{\bf Định nghĩa}
 \newtheorem{theorem}{{\bf Định lý}}
 \newtheorem{property}{{\bf Tính chất}}
 \newtheorem{proposition}{{\bf Mệnh đề}}
@@ -113,7 +117,7 @@ morekeywords={}
 	%\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
 	\begin{tabular}{l}
 		\textbf{  Trường Đại Học Bách Khoa - Đại học Quốc gia TP.HCM }\\
-		\textbf{  Khoa Điện - Điện tử}
+		%\textbf{  Khoa Điện - Điện tử}
 	\end{tabular} 	
  \end{tabular}
 }
@@ -123,7 +127,7 @@ morekeywords={}
 		\tiny \bf 
 	\end{tabular}  }
 \fancyfoot{} % clear all footer fields
-\fancyfoot[L]{\scriptsize  Báo cáo Bài tập lớn/Môn phương pháp tính - HK2 2024 - 2025}
+\fancyfoot[L]{\scriptsize  Báo cáo Bài tập lớn/Môn Phương pháp tính - HK2 2024 - 2025}
 \fancyfoot[R]{\scriptsize  Trang {\thepage}/\pageref{LastPage}}
 
 \renewcommand{\headrulewidth}{0.3pt}
@@ -186,8 +190,8 @@ morekeywords={}
 \begin{tabular}{c}
 \multicolumn{1}{c}{\textbf{{\LARGE BÁO CÁO}}}\\
 \\{\textbf{{\LARGE BÀI TẬP LỚN}}}
-\\{\textbf{{\LARGE MÔN HỌC ĐẠI SỐ TUYẾN TÍNH}}}
-\\ \textit{(MT1007)}
+\\{\textbf{{\LARGE MÔN HỌC PHƯƠNG PHÁP TÍNH}}}
+\\ \textit{(MT1009)}
 \\
 \\
 \textbf{\LARGE ĐỀ TÀI 14}\\
@@ -198,13 +202,13 @@ morekeywords={}
 \vspace{0.5cm}
 \begin{table}[h]
 \begin{tabular}{rll}
-\hspace{2 cm} &  \textbf{\Large GVHD:} {\Large Phạm Thành An}
+\hspace{2 cm} &  \textbf{\Large GVHD:} {\Large ................................}
 \\
 \\
 \hspace{2 cm} &   \textbf{\Large Lớp:} {\Large AN01}
 \\
 \\
-\hspace{2 cm}  &   \textbf{\Large Nhóm số:} {\Large 3}
+\hspace{2 cm}  &   \textbf{\Large Nhóm số:} {\Large 02}
 \\
 \\
 \end{tabular}
@@ -227,7 +231,9 @@ morekeywords={}
     \hline
     2 & Lê Đức Minh & 2414110\\
     \hline
-    3 & Huỳnh Minh Khôi& 2411687\\
+    3 & & \\
+    \hline
+    4 & & \\
     \hline
 \end{tabular}
 \end{center}
@@ -235,7 +241,7 @@ morekeywords={}
 
 \vspace{0.5cm}
 \begin{center}
-{\Large TP. HỒ CHÍ MINH, 2024 }
+{\Large TP. HỒ CHÍ MINH, 2025 }
 \end{center}
 \end{titlepage}
 %\thispagestyle{empty}
