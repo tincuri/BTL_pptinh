@@ -2,7 +2,7 @@ inclpath = .
 
 CC=gcc
 
-CFLAGS= -UDEBUG -DNOTSTANDALONE -UCLOCK\
+CFLAGS= -UDEBUG -UCLOCK\
 	-I$(inclpath) -L/lib/pa1.1 -g 
 
 
@@ -18,6 +18,8 @@ LDFLAGS= -lm
 objects= construct.o misc.o monotone.o tri.o
 executable = triangulate
 
+# Build library without STANDALONE defined
+$(executable): CFLAGS += -DSTANDALONE
 $(executable): $(objects)
 	rm -f $(executable)
 	$(CC) $(CFLAGS) $(objects) $(LDFLAGS) -o $(executable)
@@ -28,5 +30,5 @@ lib: $(objects)
 $(objects): $(inclpath)/triangulate.h
 
 clean:
-	rm -f $(objects)
+	rm -f $(objects) libtriangulate.a
 
