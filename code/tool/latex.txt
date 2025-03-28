@@ -1,0 +1,129 @@
+%%%% code python cho ldm
+
+
+
+
+
+
+
+\begin{lstlisting}
+import 
+
+### READ FILE FROM C
+# take diagonals (for plot)
+diagonals = [# list of polygon's diagonals]
+
+# take polygon vertex
+vertexes = [# list of polygon's vertices]
+
+
+
+### SUPPORTING FUNCTION
+# RETURN TRUE IF A->B->C CCW, FALSE IF THEY'RE NOT
+def isccw_x(a, b, c):
+    return (c[1]-a[1]) * (b[0]-a[0]) > (b[1]-a[1]) * (c[0]-a[0])
+
+### MAIN LOGIC BEGIN
+count = 0 # for save figure
+
+# INITIAL STEP
+road = [source] # list of cusp to keep track on the final path
+cusp = source # let source be the first cusp
+global_upper_branch = [source]
+global_lower_branch = [source]
+up_turn = None # store the turn of two convex (can be inferenced)
+
+
+# GENERAL STEP
+
+def general_step(diagonal: 'list', cusp: 'tuple', upper_branch: 'list', lower_branch: 'list'):
+    linked = False # True if point is added
+    if len(upper_branch) < 2 and len(lower_branch) < 2: # case: only contains cusp, state don't change
+        upper_branch.insert(0, diagonal[0])
+        lower_branch.insert(0, diagonal[1])
+    elif len(upper_branch) < 2: # case new cusp is last point of lower_branch (but now it is upper(local))
+        upper_branch.insert(0, diagonal[1])
+        linked = True
+    else: # generally case
+        # get the turn of two branch
+        try: # handle case len(lower_branch) = 0
+            up_to_low = isccw_x(upper_branch[-2], cusp, lower_branch[-2])
+        except IndexError:
+            up_to_low = isccw_x(upper_branch[-2], cusp, cusp)
+        if up_to_low: # up_to_low is true = ccw
+            up_turn = False # up_turn nguoc chieu -> cw
+        else:
+            up_turn = True
+        
+        # check upper_branch first:
+        maybe = False # check if maybe can be added or not
+        for index in range(len(upper_branch)-1): # u_0 to u_(n-1)
+            if isccw_x(diagonal[1], upper_branch[index], upper_branch[index+1]) == up_turn: # this mean to ADD HERE
+                if maybe == True: # this mean you need to delete some point
+                    del upper_branch[:index] # delete points from 0->index-1 (not include index)
+                    upper_branch.insert(0, diagonal[1])
+                    linked = True # to break
+                    break
+                else:
+                    upper_branch.insert(0, diagonal[1])
+                    linked = True
+                    break
+            elif isccw_x(diagonal[1], upper_branch[index], upper_branch[index+1]) != up_turn: # this mean to ADD HERE
+                if maybe == False:
+                    maybe = True
+        # cusp case aka u_n
+        if linked == False: # this mean to check cusp case
+            if len(lower_branch) < 2:
+                upper_branch = [diagonal[1], cusp]
+                linked = True
+            elif isccw_x(diagonal[1], upper_branch[-2], cusp) == up_to_low:
+                if isccw_x(diagonal[1], lower_branch[-2], cusp) != up_to_low:
+                    upper_branch = [diagonal[1], cusp] # update upper branch
+                    linked = True # to break
+        # lower_branch
+        if linked == False: # mean to check lower branch 
+            for index in range(-1, -len(lower_branch), -1):  # Iterate backwards from u(n+1) to u(0)
+                if isccw_x(diagonal[1], lower_branch[index], lower_branch[index-1]) == up_turn: # this mean to ADD HERE
+                    cusp = lower_branch[index-1] # NEW CUSP
+                    road.append(cusp) # save cusp
+                    upper_branch = [diagonal[1], cusp]
+                    del lower_branch[index:] # delete points from index->end (not include index)
+                    linked = True # to break
+                    break
+    if linked == False:
+        print("FAIL!!!")
+    return cusp, upper_branch, lower_branch
+            
+timesss = 0
+for diagonal in diagonals: # check diagonal one by one
+    if timesss == 0: # initial case
+            global_upper_branch.insert(0, diagonal[0])
+            global_lower_branch.insert(0, diagonal[1])
+            timesss += 1
+
+    if diagonal[0] == global_upper_branch[0] or diagonal[1] == global_upper_branch[0]: # this mean upper branch has reach current diagonal no need to change
+        # so we check lower branch first
+        cusp, global_lower_branch, global_upper_branch = general_step(diagonal, cusp, global_lower_branch, global_upper_branch)
+    elif diagonal[0] == global_lower_branch[0] or diagonal[1] == global_lower_branch[0]:
+        cusp, global_upper_branch, global_lower_branch = general_step(diagonal, cusp, global_upper_branch, global_lower_branch)
+    else: # case only contain cusp or FAIL:
+        if len(global_upper_branch) == 1 and len(global_lower_branch) == 1: # ensure not FAIL
+            global_upper_branch.insert(0, diagonal[0])
+            global_lower_branch.insert(0, diagonal[1])
+
+        else:
+            print("yowaimushi")
+    plotTriangulate(upper=global_upper_branch, lower=global_lower_branch, road=road, count=count)
+    count += 1
+
+# final step:
+if destination in global_upper_branch:
+    for _ in reversed(global_upper_branch):
+        if _ not in road:
+            road.append(_)
+else:
+    for _ in reversed(global_lower_branch):
+        if _ not in road:
+            road.append(_)
+\end{lstlisting}
+
