@@ -15,7 +15,7 @@ import math
 
 
 # take input from test.txt
-f = open("code/tool/case_1000.txt", "r")
+f = open("code/tool/15points.txt", "r")
 
 # insert input points to list
 set = [] # set of all points which hasn't become verticle
@@ -39,7 +39,7 @@ plt.scatter(x_in, y_in, marker='o')  # Create the scatter plot
 #plt.plot(array_for_hull[:, 0], array_for_hull[:, 1], 'o')
 plt.plot(arr[:, 0], arr[:, 1], 'r--', lw=2)
 #plt.savefig(f"code/tool/figure/triangulation/case_100_0.png")
-#plt.show() # show origin simple polygon
+plt.show() # show origin simple polygon
 
 
 def plotTriangulate(for_plot: 'tuple', count: 'int'):
@@ -49,7 +49,7 @@ def plotTriangulate(for_plot: 'tuple', count: 'int'):
         x_values, y_values = diagonal
         plt.plot(x_values, y_values, 'k-', lw=2)
     #plt.savefig(f"code/tool/figure/triangulation/case_100_{count}.png")
-    #plt.show() # show origin simple polygon
+    plt.show() # show origin simple polygon
 
 def sortQueue(a: 'list')->list:
     """
@@ -122,7 +122,7 @@ def makeMonotone(polygon: 'Polygon'): # a: 'List' --> queue = [vertex: 'Point', 
                     for_plot.append((x_values, y_values))
                     
                     line_inserted += 1
-                    #plotTriangulate(for_plot, line_inserted)
+                    plotTriangulate(for_plot, line_inserted)
 
                     diags.append((prev_ver, next_ver))
 
