@@ -45,4 +45,4 @@ python code/lee.py
 ### Etc
 There are some python functions for generating a polygon if you don't have one. Check out `code\README.md` for their usages.
 ## Acknowledgements
-The [Seidel's algorithms](seidels-algorithm) is taken from [https://gamma.cs.unc.edu/SEIDEL/](https://gamma.cs.unc.edu/SEIDEL/) which was made by Atul Narkhede and Dinesh Manocha.
+The [Seidel's algorithms](#seidels-algorithm) is taken from [https://gamma.cs.unc.edu/SEIDEL/](https://gamma.cs.unc.edu/SEIDEL/) which was made by Atul Narkhede and Dinesh Manocha.
