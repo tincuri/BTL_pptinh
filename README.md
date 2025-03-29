@@ -37,7 +37,7 @@ gcc -lm main_no_tri.c make_dcel.c dcel.c scan.c misc.c -o sleeve_no_tri
 The code is not that long so it would not take to long to compile.
 
 Now you can run the binary with the same name without command line arguments to get the usage. In `C_code` there is some sample files for how to structure your files.
-### Lee & Preparata algorithm
+## Lee & Preparata algorithm
 In `code/lee.py` modify the files paths to your files paths, then run:
 ```
 python code/lee.py
