@@ -3,34 +3,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../find_edge/find_edge.h"
+#include "../seidel-1.0/triangulate.h"
 #include "dcel.h"
 #include "make_dcel.h"
 #include "misc.h"
 #include "scan.h"
-#include "../seidel-1.0/triangulate.h"
-#include "../find_edge/find_edge.h"
 
 int face1, face2;      /* face index of the 2 points */
 struct point *p1, *p2; /* the 2 points */
 double **vertex_array; /* array of vertex as x and y */
-int **triangles; /* array of 2 index of a triangle */
+int **triangles;       /* array of 2 index of a triangle */
 
-
-int read_point_file(char *filename); /* make the 2 points */
+int read_point_file(char *filename);       /* make the 2 points */
 void print_edge(struct dcel_edge *h_edge); /* print an edge to screen */
-void write_edge(FILE *infile, struct dcel_edge *h_edge); /* write edge to output */
-void write_result(char *output); /* write result to output */
-void reprocess(int op[SEGSIZE][3], int ntriangles); /*make the index 0th again (because the lib didnt do so) */
+void write_edge(FILE *infile,
+                struct dcel_edge *h_edge); /* write edge to output */
+void write_result(char *output);           /* write result to output */
+void reprocess(
+    int op[SEGSIZE][3],
+    int ntriangles); /*make the index 0th again (because the lib didnt do so) */
 
 int main(int argc, char *argv[]) {
   struct node *t;
   if (argc < 4) {
     fprintf(stderr, "ERROR: Missing some files\n");
-    fprintf(stderr, "USAGE: ./sleeve <polygon_file> <2_points_locations> <output>\n");
+    fprintf(stderr,
+            "USAGE: ./sleeve <polygon_file> <2_points_locations> <output>\n");
     exit(EXIT_FAILURE);
   }
 
-  if(read_polygon_file(argv[1]) < 0)
+  if (read_polygon_file(argv[1]) < 0)
     exit(EXIT_FAILURE);
 
   int op[vertex_count][3], ntriangles;
@@ -40,10 +43,9 @@ int main(int argc, char *argv[]) {
   get_edges(op, ntriangles);
   edge_from_graph(edge_graph);
   /*read_edge_file(argv[2]);*/
-  if(read_point_file(argv[2]) < 0)
+  if (read_point_file(argv[2]) < 0)
     exit(EXIT_FAILURE);
   create_dcel();
-
 
   face1 = point_location(p1);
   face2 = point_location(p2);
@@ -59,20 +61,21 @@ int main(int argc, char *argv[]) {
   return EXIT_SUCCESS;
 }
 
-void init_triangles(void){
+void init_triangles(void) {
   triangles = malloc(vertex_count * sizeof(int *));
   for (int i = 0; i < vertex_count; i++)
     triangles[i] = malloc(3 * sizeof(int));
 }
-void create_vertex_array(void){
+void create_vertex_array(void) {
   /* init the array */
-  vertex_array = malloc((vertex_count + 1) * sizeof(int *)); /* the lib require start at 1 */
+  vertex_array = malloc((vertex_count + 1) *
+                        sizeof(int *)); /* the lib require start at 1 */
   for (int j = 0; j < vertex_count + 1; j++)
     vertex_array[j] = malloc(2 * sizeof(double));
 
   for (int i = 0; i < vertex_count; i++) {
-    vertex_array[i+1][0] = vertex_list[i]->x;
-    vertex_array[i+1][1] = vertex_list[i]->y;
+    vertex_array[i + 1][0] = vertex_list[i]->x;
+    vertex_array[i + 1][1] = vertex_list[i]->y;
   }
 }
 
@@ -122,8 +125,8 @@ void write_result(char *output) {
   printf("Finished writing result to <%s>\n", output);
 }
 
-void reprocess(int op[SEGSIZE][3], int ntriangles){
-  for (int i = 0; i < ntriangles; i++){
+void reprocess(int op[SEGSIZE][3], int ntriangles) {
+  for (int i = 0; i < ntriangles; i++) {
     --op[i][0];
     --op[i][1];
     --op[i][2];

@@ -18,9 +18,9 @@ int n;
 
 #ifdef STANDALONE
 
-void write_result(int op[SEGSIZE][3], int ntriangles) {
+void write_result(int op[SEGSIZE][3], int ntriangles, char *output) {
   FILE *infile;
-  infile = fopen("triangles.txt", "w");
+  infile = fopen(output, "w");
   fprintf(infile, "%d\n", ntriangles);
   for (int i = 0; i < ntriangles; i++)
     fprintf(infile, "%d %d %d\n", op[i][0] - 1, op[i][1] - 1, op[i][2] - 1);
@@ -33,8 +33,8 @@ char *argv[];
   int n, nmonpoly, genus;
   int op[SEGSIZE][3], i, ntriangles;
 
-  if ((argc < 2) || ((n = read_segments(argv[1], &genus)) < 0)) {
-    fprintf(stderr, "usage: triangulate <filename>\n");
+  if ((argc < 3) || ((n = read_segments(argv[1], &genus)) < 0)) {
+    fprintf(stderr, "usage: triangulate <filename> <output>\n");
     exit(1);
   }
 
@@ -42,11 +42,11 @@ char *argv[];
   construct_trapezoids(n);
   nmonpoly = monotonate_trapezoids(n);
   ntriangles = triangulate_monotone_polygons(n, nmonpoly, op);
-
-  for (i = 0; i < ntriangles; i++)
-    printf("triangle #%d: %d %d %d\n", i, op[i][0] - 1, op[i][1] - 1,
-           op[i][2] - 1);
-  write_result(op, ntriangles);
+  //
+  // for (i = 0; i < ntriangles; i++)
+  //   printf("triangle #%d: %d %d %d\n", i, op[i][0] - 1, op[i][1] - 1,
+  //          op[i][2] - 1);
+  write_result(op, ntriangles, argv[2]);
 
   return 0;
 }
