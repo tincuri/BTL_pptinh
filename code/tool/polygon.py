@@ -2,8 +2,8 @@ import numpy as np # type: ignore
 import matplotlib.pyplot as plt # type: ignore
 import sys
 from typing import Union
-from point import Point # type: ignore
-from line import Segment, Line, Ray
+from .point import Point # type: ignore
+from .line import Segment, Line, Ray
 import math
 
 import heapq

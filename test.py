@@ -1,42 +1,33 @@
-"""
-lower_branch = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+import numpy as np
+from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
 
+# Data
+x_data = np.array([2.07, 4.04, 6.00, 8.07, 10.04, 12.00, 14.08, 16.05, 18.07]) * -1
+y_data = np.array([0.16, 0.35, 0.52, 0.69, 0.86, 1.03, 1.12, 1.37, 1.55]) * -1
 
+# Model function
+def model(x, a, b):
+    return a * (np.exp(b * x) - 1)
 
-for index in range(-1, -len(lower_branch), -1):  # Iterate backwards
-    print(lower_branch[index], lower_branch[index-1])
+# Initial guess
+p0 = [0.01, 20]  # a = 0.01, b = 20
 
-index = 4
-del lower_branch[4:]
-print(lower_branch)
+# Fit the model
+params, covariance = curve_fit(model, x_data, y_data, p0=p0)
+a, b = params
+print(f"Fitted parameters: a = {a:.6f}, b = {b:.6f}")
 
-"""
+# Generate smooth curve for plotting
+x_smooth = np.linspace(min(x_data), max(x_data), 100)
+y_smooth = model(x_smooth, a, b)
 
-data = """
-0.0774155313078 0.8113376396024
-0.0681084508445 0.4855898233843
-0.2011792554782 0.2525821297921
-0.0805178914623 0.0977948040772
-0.356627945209 0.1008971642316
-0.5041553935497 0.3536057313367
-0.5489742747854 0.109873562687
-0.7816512863697 0.1288184056217
-0.7382182442073 0.5263142984417
-0.8530055699222 0.5380308195229
-0.8933362519302 0.1195113251584
-0.9522810948648 0.4049284593684
-0.8530055699222 0.693447953733
-0.6917459529319 0.6624243521884
-0.3162972632011 0.7927234786756
-0.1859981367139 0.6314007506438
-0.4935255850546 0.6596842295626
-0.2914783819654 0.4521567812219
-0.1704863359416 0.4321567825897
-"""
-
-tuples = []
-for line in data.strip().split('\n'):
-    a, b = map(float, line.split())
-    tuples.append((a, b))
-
-print(tuples)
+# Plot data and fitted curve
+plt.scatter(x_data, y_data, color='blue', label='Data points')
+plt.plot(x_smooth, y_smooth, color='red', label=f'Fit: y = {a:.3f}(e^{b:.3f}x - 1)')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Nonlinear Least Squares Fit')
+plt.legend()
+plt.grid(True)
+plt.show()

@@ -2,7 +2,7 @@ import numpy as np # type: ignore
 import matplotlib.pyplot as plt # type: ignore
 import sys
 from typing import Union
-from point import Point
+from .point import Point
 import math
 
 class Line(object):
