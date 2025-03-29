@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.23)  8 FEB 2025 02:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.23)  13 FEB 2025 07:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1652,7 +1652,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.251 \newpage
+l.249 \newpage
                [1
 
 ] (main.lof)
@@ -1671,49 +1671,49 @@ l.251 \newpage
 
 File: Images/1-hcmut.png Graphic file (type png)
 <use Images/1-hcmut.png>
-Package pdftex.def Info: Images/1-hcmut.png  used on input line 260.
+Package pdftex.def Info: Images/1-hcmut.png  used on input line 258.
 (pdftex.def)             Requested size: 28.44864pt x 28.44792pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.260 \newpage
+l.258 \newpage
                [1] (Contents/2-CoSoLyThuyet.tex)
 
 File: Images/1-hcmut.png Graphic file (type png)
 <use Images/1-hcmut.png>
-Package pdftex.def Info: Images/1-hcmut.png  used on input line 262.
+Package pdftex.def Info: Images/1-hcmut.png  used on input line 260.
 (pdftex.def)             Requested size: 28.44864pt x 28.44792pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.262 \newpage
+l.260 \newpage
                [2] (Contents/3-ThucHanh.tex)
 
 File: Images/1-hcmut.png Graphic file (type png)
 <use Images/1-hcmut.png>
-Package pdftex.def Info: Images/1-hcmut.png  used on input line 264.
+Package pdftex.def Info: Images/1-hcmut.png  used on input line 262.
 (pdftex.def)             Requested size: 28.44864pt x 28.44792pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.264 \newpage
+l.262 \newpage
                [3] (Contents/4-TongKet.tex) (Outro/1-TaiLieuThamKhao.tex)
 
 File: Images/1-hcmut.png Graphic file (type png)
 <use Images/1-hcmut.png>
-Package pdftex.def Info: Images/1-hcmut.png  used on input line 268.
+Package pdftex.def Info: Images/1-hcmut.png  used on input line 266.
 (pdftex.def)             Requested size: 28.44864pt x 28.44792pt.
 [4] (Outro/2-PhuLuc.tex)
 
 File: Images/1-hcmut.png Graphic file (type png)
 <use Images/1-hcmut.png>
-Package pdftex.def Info: Images/1-hcmut.png  used on input line 270.
+Package pdftex.def Info: Images/1-hcmut.png  used on input line 268.
 (pdftex.def)             Requested size: 28.44864pt x 28.44792pt.
 [5] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
@@ -1728,7 +1728,7 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Here is how much of TeX's memory you used:
  29680 strings out of 473682
  563300 string characters out of 5718739
- 1117540 words of memory out of 5000000
+ 1116540 words of memory out of 5000000
  52113 multiletter control sequences out of 15000+600000
  595838 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1737,7 +1737,7 @@ Here is how much of TeX's memory you used:
 .pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/utm
 r8v.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/urwvn/
 utmri8v.pfb>
-Output written on main.pdf (12 pages, 155395 bytes).
+Output written on main.pdf (12 pages, 156046 bytes).
 PDF statistics:
  166 PDF objects out of 1000 (max. 8388607)
  29 named destinations out of 1000 (max. 500000)

@@ -1,7 +1,25 @@
 #include "triangulate.h"
 #include <sys/time.h>
 #include <math.h>
+#include <stdlib.h>
 
+#if !(_SVID_SOURCE || _XOPEN_SOURCE)
+double drand48(void) {
+    return rand() / (RAND_MAX + 1.0);
+}
+
+long int lrand48(void) {
+    return rand();
+}
+
+long int mrand48(void) {
+    return rand() > RAND_MAX / 2 ? rand() : -rand();
+}
+
+void srand48(long int seedval) {
+    srand(seedval);
+}
+#endif
 #ifdef __STDC__
 //extern double log2(double);
 #else
@@ -53,7 +71,6 @@ int choose_segment()
 }
 
 
-#ifdef STANDALONE
 
 /* Read in the list of vertices from infile */
 int read_segments(filename, genus)
@@ -123,7 +140,6 @@ int read_segments(filename, genus)
   return i-1;
 }
 
-#endif
 
 
 /* Get log*n for given n */
