@@ -11,7 +11,7 @@
 #include "scan.h"
 
 int face1, face2;      /* face index of the 2 points */
-struct point *p1, *p2; /* the 2 points */
+struct point *p1, *p2; /* the 2 points , the point is inverse so remember to prepared for that*/
 double **vertex_array; /* array of vertex as x and y */
 int **triangles;       /* array of 2 index of a triangle */
 
@@ -113,12 +113,19 @@ int read_point_file(char *filename) {
     p1 = new_point(x, y);
   return 0;
 }
-
+/* Can customize this to your liking */
 void write_result(char *output) {
   FILE *infile;
   struct node *t;
+  int diagonal_count = 0;
 
+  for (t = head->next; t != z; t = t->next) {
+    diagonal_count++;
+  }
   infile = fopen(output, "w");
+
+  fprintf(infile, "%d\n", diagonal_count+1);
+  fprintf(infile, "%lf %lf %lf %lf\n", p2->x, p2->y, p1->x, p1->y);
   for (t = head->next; t != z; t = t->next) {
     write_edge(infile, t->half_edge);
   }
