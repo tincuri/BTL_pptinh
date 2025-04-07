@@ -12,11 +12,11 @@ from tool.point import Point # type: ignore
 # ==============================================
 #              PATH
 # ==============================================
-simplePolygonPath = "code/dataset/Coutput/maze.txt"
-sleevePath = "code/dataset/Coutput/maze_sleeve.txt"
+simplePolygonPath = "./dataset/Coutput/maze.txt"
+sleevePath = "./dataset/Coutput/maze_sleeve.txt"
 
 # code/figure/lee/{yourname}/example_{count}.png  make sure create the {yourname} folder in code/figure/lee
-savefigPath ="code/figure/lee/example_0/"
+savefigPath ="./figure/lee/example_0/"
 
 
 
@@ -170,7 +170,7 @@ def plotTriangulate(upper: 'list', lower: 'list', road: 'list', count: 'int'):
     plt.scatter(x_road, y_road, marker='s', color='black')
     plt.plot(x_road, y_road, color='red')
     #plt.savefig(savefigPath+f"example_{count}.png")
-    #plt.show()
+    plt.show()
 
 
 
