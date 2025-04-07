@@ -15,10 +15,10 @@ import time
 if __name__ == "__main__":
 
     # take input from test.txt
-    nn = [5, 10, 15, 20, 25, 50, 100, 150, 200, 400, 600, 1000, 2000, 4000, 10000]
+    nn = [200, 400, 600, 1000, 1200, 1400, 1600, 1800, 2000,2200, 2400]
     for n in nn:
         # take list of vertices to make simple polygon
-        f = open(f"code/dataset/vertices/case_{n}.txt", "r")
+        f = open(f"dataset/vertices/case_{n}.txt", "r")
 
         # start timer
         start = time.time()
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         pset = polygon.vertices
         
         # output for C code:
-        f = open(f"code/dataset\Cinput\c_case_{n}.txt", "w")
+        f = open(f"dataset/Cinput/c_case_{n}.txt", "w")
         f.write(str(n))
         f.write("\n")
         for pp in range(len(pset)):
@@ -115,7 +115,7 @@ if __name__ == "__main__":
         #print(xs, ys)
         plt.plot(xs, ys)
         #plt.savefig(f"code\figure\simplePolygonFig\case_{n}.png")
-        plt.show()
+        # plt.show()
 
         # close test.txt file
         f.close()

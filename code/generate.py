@@ -6,10 +6,10 @@ import random
 
 # prompt user to enter the number of vertices
 # n = int(input("Number of vertices: "))
-nn = [5, 10, 15, 20, 25, 50, 100, 150, 200, 400, 600, 1000, 2000, 4000, 10000]
 
+nn = [200, 400, 600, 1000, 1200, 1400, 1600, 1800, 2000,2200, 2400]
 for n in nn:
-    f = open(f"code/dataset/vertices/case_{n}.txt", "w")
+    f = open(f"dataset/vertices/case_{n}.txt", "w")
     f.write("%i\n" % n)
     for i in range(n):
         x = random.random()

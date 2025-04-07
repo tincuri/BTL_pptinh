@@ -62,7 +62,7 @@ typedef struct {
 #define T_Y 2
 #define T_SINK 3
 
-#define SEGSIZE 2000 /* max# of segments. Determines how */
+#define SEGSIZE 6000 /* max# of segments. Determines how */
                      /* many points can be specified as */
                      /* input. If your datasets have large */
                      /* number of points, increase this */
