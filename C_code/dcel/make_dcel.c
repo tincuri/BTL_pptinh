@@ -50,7 +50,7 @@ int read_polygon_file(char *filename) {
   f_edge = edge1;
 
   do {
-    if ((ch = fgetc(infile)) == EOF) {
+    if ((ch = check_end(infile)) == EOF) {
       break;
     }
     ungetc(ch, infile);
@@ -90,11 +90,11 @@ int read_edge_file(char *filename) {
     return -1;
   } /* error checking */
 
-  while ((ch = fgetc(infile)) != '\n') { /*stop at each line */
-    if (ch == '\r') {                    /* combat with the CRLF nonsense */
-      fgetc(infile);
-      break;
-    }
+  while ((ch = check_end(infile)) != '\n') { /*stop at each line */
+    /*if (ch == '\r') {                    /* combat with the CRLF nonsense */
+    /*  fgetc(infile);*/
+    /*  break;*/
+    /*}*/
     ungetc(ch, infile);
     scan_edge(infile); // return a dcel_edge
     count++;

@@ -1,3 +1,4 @@
+/*                       IF FAILED, CHECK FOR CRLF */
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -266,4 +267,13 @@ void edge_from_graph(int **edge_graph){
       }
     }
   }
+}
+// CRLF crap
+int check_end(FILE *infile){
+  char ch;
+  ch = fgetc(infile);
+  if (ch = '\r') {
+    ch = fgetc(infile);
+  }
+  return ch;
 }
