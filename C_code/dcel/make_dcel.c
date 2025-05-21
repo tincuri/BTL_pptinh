@@ -50,7 +50,7 @@ int read_polygon_file(char *filename) {
   f_edge = edge1;
 
   do {
-    if ((ch = fgetc(infile)) == EOF) {
+    if ((ch = check_end(infile)) == EOF) {
       break;
     }
     ungetc(ch, infile);

@@ -30,6 +30,7 @@ struct node *sort_edge(struct node *f_node);
 enum orientation orientation(struct dcel_edge *h_edge, struct point *p);
 int point_location(struct point *p);
 void edge_from_graph(int **edge_graph);
+int check_end(FILE *infile);
 /* Basic datastructure */
 
 /* linked list */
